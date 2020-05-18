@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous"/>
+    <title>Passwort Vergessen</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/passwortVergessen}" method="POST" class="form-horizontal">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" th:text="'Passwort Vergessen'"></h4>
+
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>E-Mail-Adresse</label>
+                        <input type="text" id="e_Mail" name="e_Mail"  th:placeholder="'E-Mail-Adresse'" class="form-control"/><br/>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Ausweisnummer</label>
+                        <input type="text" id="ausweisnummer" name="ausweisnummer"  th:placeholder="'Ausweisnummer'" class="form-control"/><br/>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Neues Passwort</label>
+                        <input type="text" id="neues_passwort" name="neues_passwort"  th:placeholder="'Neues Passwort'" class="form-control"/><br/>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-12 col-md-6">
+                        <label>Passwort Bestätigen</label>
+                        <input type="text" id="passwort_bestaetigen" name="passwort_bestaetigen"  th:placeholder="'Passwort Bestätigen'" class="form-control"/><br/>
+                    </div>
+                </div>
+
+        </div>
+            <div class="card-footer">
+                <button name="Submit" value="Bestätigen" type="Submit" th:text="'Bestätigen'" class="btn btn-primary"></button>
+            </div>
+
+            <div class="card-footer">
+                <button name="Submit" value="Zurück" type="Submit" th:text="'Zurück'" class="btn btn-primary"></button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>>
