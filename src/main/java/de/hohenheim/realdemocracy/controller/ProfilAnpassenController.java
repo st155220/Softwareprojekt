@@ -4,13 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class RegistrierungController {
+public class ProfilAnpassenController {
 
-    @GetMapping("/register")
-    public String showRegister() {
-        return "registrierung";
-    }
-
-
-
+    @GetMapping("/profilAnpassen")
+    public String showProfilAnpassen() { return "profilAnpassen"; }
 }

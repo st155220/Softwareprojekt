@@ -12,11 +12,14 @@ public class LoginController {
      * @return login-Seite.
      */
     @GetMapping("/")
-    public String showLogin() {
+    public String start() {
         return "login";
     }
 
-
+    @GetMapping("/login")
+    public String showLogin() {
+        return "login";
+    }
 
 
 }
