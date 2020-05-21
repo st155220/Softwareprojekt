@@ -1,8 +1,7 @@
 package de.hohenheim.realdemocracy.controller;
 
-import de.hohenheim.realdemocracy.entity.Bundesland;
-import de.hohenheim.realdemocracy.entity.Citizen;
-import de.hohenheim.realdemocracy.entity.User;
+import de.hohenheim.realdemocracy.entity.*;
+import de.hohenheim.realdemocracy.service.DebatteService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ProfilAnpassenController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DebatteService debatteService;
 
     @GetMapping("/profilAnpassen")
     public String showProfilAnpassen() {
@@ -34,6 +37,8 @@ public class ProfilAnpassenController {
 
         User user = LoginController.currentUser;
         userService.change_email(user.get_User_Id(), neue_e_mail);
+        List<Debatte> debatten = debatteService.find_All_Debates();
+        model.addAttribute("debatten", debatten);
         return "home";
     }
 
@@ -50,6 +55,8 @@ public class ProfilAnpassenController {
         }
 
         userService.change_passwort(user.get_User_Id(), neues_passwort);
+        List<Debatte> debatten = debatteService.find_All_Debates();
+        model.addAttribute("debatten", debatten);
         return "home";
     }
 
@@ -111,16 +118,10 @@ public class ProfilAnpassenController {
                 break;
         }
 
-        if (bundesland == Bundesland.ALLE) {
-            return "profilAnpassen";
-        }
-
         User user = LoginController.currentUser;
-        if (user instanceof Citizen) {
-            userService.change_Bundesland(user.get_User_Id(), bundesland);
-            return "home";
-        } else {
-            return "profilAnpassen";
-        }
+        userService.change_Bundesland(user.get_User_Id(), bundesland);
+        List<Debatte> debatten = debatteService.find_All_Debates();
+        model.addAttribute("debatten", debatten);
+        return "home";
     }
 }

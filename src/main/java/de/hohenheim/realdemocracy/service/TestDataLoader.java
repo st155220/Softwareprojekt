@@ -28,6 +28,7 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_Politician.set_Vorname("Anja");
         test_Politician.set_E_Mail("anja.schaefer@bundesregierung.de");
         test_Politician.set_Passwort("Marlene04.08.");
+        test_Politician.set_Bundesland(Bundesland.ALLE);
         userService.save_User(test_Politician);
 
         Citizen test_Citizen = new Citizen();
@@ -37,9 +38,14 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_Citizen.set_Passwort("Pfeil123Bogen!");
         userService.save_User(test_Citizen);
 
-        Debatte test_Debatte = new Debatte(Kategorie.ALLE, Thema.ALLE, test_Politician,
-                Bundesland.Bayern, "T1", "P1", "L1",
-                "12.04.2020 12:00");
+        Debatte test_Debatte = new Debatte();
+        test_Debatte.setKategorie(Kategorie.ALLE);
+        test_Debatte.setThema(Thema.ALLE);
+        test_Debatte.setBundesland(Bundesland.Bayern);
+        test_Debatte.setTitel("T1");
+        test_Debatte.setProblemstellung("P1");
+        test_Debatte.setLoesungsstrategie("L1");
+        test_Debatte.setStichtag("12.04.2020 12:00");
         debatteService.save_Debatte(test_Debatte);
     }
 }

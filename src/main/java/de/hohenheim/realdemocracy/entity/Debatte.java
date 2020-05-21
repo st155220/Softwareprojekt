@@ -23,53 +23,46 @@ public class Debatte {
     private int anzahl_Zustimmungen;
     private int anzahl_Ablehnungen;
 
-    public Debatte(Kategorie kategorie, Thema thema, Politician ersteller, Bundesland bundesland, String titel,
-                   String problemstellung, String loesungsstrategie, String stichtag){
-        this.kategorie = kategorie;
-        this.thema = thema;
-        this.bundesland = bundesland;
-        this.titel = titel;
-        this.problemstellung = problemstellung;
-        this.loesungsstrategie = loesungsstrategie;
-        this.stichtag = stichtag;
-        this.anzahl_Zustimmungen = 0;
-        this.anzahl_Ablehnungen = 0;
-    }
-
     public Integer get_Debatte_Id(){
         return debatte_Id;
     }
 
     public Kategorie get_Kategorie(){ return kategorie;}
+    public void setKategorie(Kategorie kategorie){this.kategorie = kategorie;}
 
     public Thema get_Thema(){
         return thema;
     }
+    public void setThema(Thema thema){this.thema = thema;}
 
     public Bundesland get_Bundesland(){
         return bundesland;
     }
+    public void setBundesland(Bundesland bundesland){this.bundesland = bundesland;}
 
     public String get_Titel(){
         return titel;
     }
+    public void setTitel(String titel){this.titel = titel;}
 
     public String get_Problemstellung(){
         return problemstellung;
     }
+    public void setProblemstellung(String problemstellung){this.problemstellung = problemstellung;}
 
     public String get_Loesungsstrategie(){
         return loesungsstrategie;
     }
+    public void setLoesungsstrategie(String loesungsstrategie){this.loesungsstrategie = loesungsstrategie;}
 
     public String get_Stichtag(){
         return stichtag;
     }
+    public void setStichtag(String stichtag){this.stichtag = stichtag;}
 
     public int get_Anzahl_Zustimmungen(){
         return anzahl_Zustimmungen;
     }
-
     public int get_Anzahl_Ablehnungen(){
         return anzahl_Ablehnungen;
     }
@@ -77,7 +70,6 @@ public class Debatte {
     public void add_Zustimmung(){
         anzahl_Zustimmungen++;
     }
-
     public void add_Ablehnung(){
         anzahl_Ablehnungen++;
     }

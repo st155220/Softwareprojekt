@@ -89,7 +89,7 @@ public class RegistrierungController {
         }
 
 
-        if (!(e_mail.equals(e_mail_bestaetigen) && passwort.equals(passwort_bestaetigen)) || bundesland == Bundesland.ALLE) {
+        if (!(e_mail.equals(e_mail_bestaetigen) && passwort.equals(passwort_bestaetigen))) {
             return "registrierung";
         }
 

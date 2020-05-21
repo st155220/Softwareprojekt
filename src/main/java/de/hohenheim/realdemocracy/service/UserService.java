@@ -35,7 +35,7 @@ public class UserService {
     }
 
     public boolean change_Bundesland(Integer userId, Bundesland new_bundesland) {
-        Citizen user = (Citizen) userRepository.getOne(userId);
+        User user = userRepository.getOne(userId);
         user.set_Bundesland(new_bundesland);
         userRepository.save(user);
         return true;

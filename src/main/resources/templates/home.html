@@ -19,6 +19,9 @@
                     <option value="alle">Alle</option>
                 </select>
 
+                &nbsp;
+                &nbsp;
+
                 <label for="thema">Thema:</label>
                 <select id="thema">
                     <option value="alle">Alle</option>
@@ -26,16 +29,20 @@
             </div>
 
 
+            <div th:each="debatte: ${debatten}">
+                <label id="debatte" th:text="${debatte.get_Titel()}"></label>
+            </div>
 
 
+            <p></p>
+            <p></p>
 
 
             <a href="/debatteStarten">Debatte Starten</a>
-
             <a href="/profilAnpassen">Profil Anpassen</a>
 
             <div class="card-footer">
-               <button name="Logout" type="Submit" th:text="'Logout'" class="btn btn-primary"></button>
+                <button name="Logout" type="Submit" th:text="'Logout'" class="btn btn-primary"></button>
             </div>
 
         </div>

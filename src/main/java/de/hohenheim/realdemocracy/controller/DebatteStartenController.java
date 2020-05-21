@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class DebatteStartenController {
@@ -103,10 +104,18 @@ public class DebatteStartenController {
             return "debatteStarten";
         }
 
-        Debatte new_Debatte = new Debatte(kategorie, thema, (Politician) LoginController.currentUser,
-                bundesland, titel, problemstellung, loesungsstrategie, stichtag);
+        Debatte new_Debatte = new Debatte();
+        new_Debatte.setKategorie(kategorie);
+        new_Debatte.setThema(thema);
+        new_Debatte.setBundesland(bundesland);
+        new_Debatte.setTitel(titel);
+        new_Debatte.setProblemstellung(problemstellung);
+        new_Debatte.setLoesungsstrategie(loesungsstrategie);
+        new_Debatte.setStichtag(stichtag);
         debatteService.save_Debatte(new_Debatte);
 
+        List<Debatte> debatten = debatteService.find_All_Debates();
+        model.addAttribute("debatten", debatten);
         return "home";
     }
 

@@ -1,6 +1,8 @@
 package de.hohenheim.realdemocracy.controller;
 
+import de.hohenheim.realdemocracy.entity.Debatte;
 import de.hohenheim.realdemocracy.entity.User;
+import de.hohenheim.realdemocracy.service.DebatteService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -17,6 +20,9 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DebatteService debatteService;
 
     @GetMapping("/")
     public String start() {
@@ -35,8 +41,9 @@ public class LoginController {
 
         for (User user : userService.find_All_Users()){
             if (user.get_E_Mail().equals(e_mail) && user.getPasswort().equals(passwort)){
-                model.addAttribute("currentUser", user);
                 currentUser = user;
+                List<Debatte> debatten = debatteService.find_All_Debates();
+                model.addAttribute("debatten", debatten);
                 return "home";
             }
         }
