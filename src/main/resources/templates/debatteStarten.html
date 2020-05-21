@@ -15,33 +15,33 @@
                 <h4 class="card-title" th:text="'Debatte Starten'"></h4>
 
                 <label for="kategorie">Kategorie:</label>
-                <select id="kategorie">
+                <select id="kategorie" name="kategorie">
                     <option value="alle">Alle</option>
                 </select>
 
                 <label for="thema">Thema:</label>
-                <select id="thema">
+                <select id="thema" name="thema">
                     <option value="alle">Alle</option>
                 </select>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Titel</label>
-                        <input type="text" id="titel" name="titel"  th:placeholder="'Titel'" class="form-control"/><br/>
+                        <input type="text" name="titel" th:placeholder="'Titel'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Problemstellung</label>
-                        <input type="text" id="problemstellung" name="problemstellung"  th:placeholder="'Problemstellung'" class="form-control"/><br/>
+                        <input type="text" name="problemstellung" th:placeholder="'Problemstellung'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Lösungsstrategie</label>
-                        <input type="text" id="Loesungsstrategie" name="Loesungsstrategie"  th:placeholder="'Lösungsstrategie'" class="form-control"/><br/>
+                        <input type="text" name="loesungsstrategie" th:placeholder="'Lösungsstrategie'" class="form-control"/><br/>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                 </label>
 
                 <label for="bundesland">Bundesland:</label>
-                <select id="bundesland">
+                <select id="bundesland" name="bundesland">
                     <option value="alle">Alle</option>
                     <option value="baden_wuerttemberg">Baden-Württemberg</option>
                     <option value="bayern">Bayern</option>

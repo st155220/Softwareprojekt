@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <form th:action="@{/profilAnpassen/home}" method="POST" class="form-horizontal">
+    <form th:action="@{/emailAnpassen/home}" method="POST" class="form-horizontal">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title" th:text="'Profil Anpassen'"></h4>
@@ -17,40 +17,70 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Neue E-Mail-Adresse</label>
-                        <input type="text" id="neue_e_mail" name="neue_e_mail"  th:placeholder="'Neue E-Mail-Adresse'" class="form-control"/><br/>
+                        <input type="text" name="neue_e_mail" th:placeholder="'Neue E-Mail-Adresse'"
+                               class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>E-Mail-Adresse Bestätigen</label>
-                        <input type="text" id="e_mail_bestaetigen" name="e_mail_bestaetigen"  th:placeholder="'E-Mail-Adresse Bestätigen'" class="form-control"/><br/>
+                        <input type="text" name="e_mail_bestaetigen" th:placeholder="'E-Mail-Adresse Bestätigen'"
+                               class="form-control"/><br/>
                     </div>
                 </div>
+
+                <div class="card-footer">
+                    <button name="Submit" type="Submit" th:text="'E-Mail-Adresse Ändern'" class="btn btn-primary"></button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <form th:action="@{/passwortAnpassen/home}" method="POST" class="form-horizontal">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" th:text="'Profil Anpassen'"></h4>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Altes Passwort</label>
-                        <input type="text" id="altes_passwort" name="altes_passwort"  th:placeholder="'Altes Passwort'" class="form-control"/><br/>
+                        <input type="text" name="altes_passwort" th:placeholder="'Altes Passwort'"
+                               class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Neues Passwort</label>
-                        <input type="text" id="neues_passwort" name="neues_passwort"  th:placeholder="'Neues Passwort'" class="form-control"/><br/>
+                        <input type="text" name="neues_passwort" th:placeholder="'Neues Passwort'"
+                               class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Passwort Bestätigen</label>
-                        <input type="text" id="passwort_bestaetigen" name="passwort_bestaetigen"  th:placeholder="'Passwort Bestätigen'" class="form-control"/><br/>
+                        <input type="text" name="passwort_bestaetigen" th:placeholder="'Passwort Bestätigen'"
+                               class="form-control"/><br/>
                     </div>
                 </div>
 
+                <div class="card-footer">
+                    <button name="Submit" type="Submit" th:text="'Passwort Ändern'" class="btn btn-primary"></button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form th:action="@{/bundeslandAnpassen/home}" method="POST" class="form-horizontal">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title" th:text="'Profil Anpassen'"></h4>
+
                 <label for="bundesland">Bundesland:</label>
-                <select id="bundesland">
+                <select id="bundesland" name="bundesland">
                     <option value="alle">Alle</option>
                     <option value="baden_wuerttemberg">Baden-Württemberg</option>
                     <option value="bayern">Bayern</option>
@@ -70,22 +100,14 @@
                     <option value="thueringen">Thüringen</option>
                 </select>
 
+                <div class="card-footer">
+                    <button name="Submit" type="Submit" th:text="'Bundesland Ändern'" class="btn btn-primary"></button>
+                </div>
             </div>
-            <div class="card-footer">
-                <button name="Submit" value="E-Mail-Adresse Ändern" type="Submit" th:text="'E-Mail-Adresse Ändern'" class="btn btn-primary"></button>
-            </div>
-
-            <div class="card-footer">
-                <button name="Submit" value="Passwort Ändern" type="Submit" th:text="'Passwort Ändern'" class="btn btn-primary"></button>
-            </div>
-
-            <div class="card-footer">
-                <button name="Submit" value="Bundesland Ändern" type="Submit" th:text="'Bundesland Ändern'" class="btn btn-primary"></button>
-            </div>
-
-            <a href="/home">Zurück</a>
         </div>
     </form>
+
+    <a href="/home">Zurück</a>
 </div>
 </body>
 </html>>

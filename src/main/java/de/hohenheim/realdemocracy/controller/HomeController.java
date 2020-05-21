@@ -14,7 +14,10 @@ public class HomeController {
     }
 
     @PostMapping("/home/login")
-    public String register(Model model) {
+    public String showHome(Model model) {
+
+        System.out.println(model.getAttribute("currentUser"));
+        LoginController.currentUser = null;
         return "login";
     }
 

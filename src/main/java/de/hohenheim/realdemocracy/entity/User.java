@@ -16,12 +16,12 @@ public abstract class User {
 
     public Integer get_User_Id() { return user_Id; }
 
-    public String get_EMail() { return e_Mail; }
+    public String get_E_Mail() { return e_Mail; }
 
     public void set_E_Mail(String username) { this.e_Mail = username; }
 
-    public String getPassword() { return passwort; }
+    public String getPasswort() { return passwort; }
 
-    public void set_Password(String password) { this.passwort = password; }
+    public void set_Passwort(String passwort) { this.passwort = passwort; }
 
 }

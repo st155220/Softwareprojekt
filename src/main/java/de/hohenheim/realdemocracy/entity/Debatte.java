@@ -19,12 +19,12 @@ public class Debatte {
     private String titel;
     private String problemstellung;
     private String loesungsstrategie;
-    private Date stichtag;
+    private String stichtag;
     private int anzahl_Zustimmungen;
     private int anzahl_Ablehnungen;
 
     public Debatte(Kategorie kategorie, Thema thema, Politician ersteller, Bundesland bundesland, String titel,
-                   String problemstellung, String loesungsstrategie, Date stichtag){
+                   String problemstellung, String loesungsstrategie, String stichtag){
         this.kategorie = kategorie;
         this.thema = thema;
         this.bundesland = bundesland;
@@ -62,7 +62,7 @@ public class Debatte {
         return loesungsstrategie;
     }
 
-    public Date get_Stichtag(){
+    public String get_Stichtag(){
         return stichtag;
     }
 

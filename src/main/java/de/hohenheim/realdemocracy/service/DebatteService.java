@@ -13,7 +13,7 @@ public class DebatteService {
     @Autowired
     private DebatteRepository debatteRepository;
 
-    public Debatte safe_Debatte(Debatte debatte) {return debatteRepository.save(debatte);}
+    public Debatte save_Debatte(Debatte debatte) {return debatteRepository.save(debatte);}
 
     public List<Debatte> find_All_Debates(){ return debatteRepository.findAll(); }
 

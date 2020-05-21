@@ -17,47 +17,47 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Nachname</label>
-                        <input type="text" id="nachname" name="nachname"  th:placeholder="'Nachname'" class="form-control"/><br/>
+                        <input type="text" name="nachname" th:placeholder="'Nachname'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Ausweisnummer</label>
-                        <input type="text" id="ausweisnummer" name="ausweisnummer"  th:placeholder="'Ausweisnummer'" class="form-control"/><br/>
+                        <input type="text" name="ausweisnummer" th:placeholder="'Ausweisnummer'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>E-Mail-Adresse</label>
-                        <input type="text" id="e_mail" name="e_mail"  th:placeholder="'E-Mail-Adresse'" class="form-control"/><br/>
+                        <input type="text" name="e_mail"  th:placeholder="'E-Mail-Adresse'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>E-Mail-Adresse Bestätigen</label>
-                        <input type="text" id="e_mail_bestaetigen" name="e_mail_bestaetigen"  th:placeholder="'E-Mail-Adresse Bestätigen'" class="form-control"/><br/>
+                        <input type="text" name="e_mail_bestaetigen"  th:placeholder="'E-Mail-Adresse Bestätigen'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Passwort</label>
-                        <input type="text" id="passwort" name="passwort"  th:placeholder="'Passwort'" class="form-control"/><br/>
+                        <input type="text" name="passwort"  th:placeholder="'Passwort'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Passwort Bestätigen</label>
-                        <input type="text" id="passwort_bestaetigen" name="passwort_bestaetigen"  th:placeholder="'Passwort Bestätigen'" class="form-control"/><br/>
+                        <input type="text" name="passwort_bestaetigen"  th:placeholder="'Passwort Bestätigen'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <label for="bundesland">Bundesland:</label>
-                <select id="bundesland">
+                <select id="bundesland" name="bundesland">
                     <option value="alle">Alle</option>
                     <option value="baden_wuerttemberg">Baden-Württemberg</option>
                     <option value="bayern">Bayern</option>
@@ -86,6 +86,7 @@
                         </label>
                     </fieldset>
                 </form>
+
 
                 <div class="card-footer">
                     <button name="Registrieren" type="submit" th:text="'Registrieren'" class="btn btn-primary"></button>

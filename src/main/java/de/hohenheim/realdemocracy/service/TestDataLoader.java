@@ -22,21 +22,24 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        Politician test_Politician = new Politician(
-                "Ministerium für Kultur und Freizeit", "Schäfer", "Anja");
-        test_Politician.set_E_Mail("Anja.Schaefer@bundesregierung.de");
-        test_Politician.set_Password("Marlene04.08.");
+        Politician test_Politician = new Politician();
+        test_Politician.set_Sektor("Ministerium für Kultur und Freizeit");
+        test_Politician.set_Nachname("Schäfer");
+        test_Politician.set_Vorname("Anja");
+        test_Politician.set_E_Mail("anja.schaefer@bundesregierung.de");
+        test_Politician.set_Passwort("Marlene04.08.");
         userService.save_User(test_Politician);
 
-        Citizen test_Citizen = new Citizen("F123456789");
+        Citizen test_Citizen = new Citizen();
+        test_Citizen.set_Ausweisnummer("F123456789");
         test_Citizen.set_Bundesland(Bundesland.Baden_Wuerttemberg);
-        test_Citizen.set_E_Mail("Jackie.Violin@gmx.de");
-        test_Citizen.set_Password("Pfeil123Bogen!");
+        test_Citizen.set_E_Mail("jackie.violin@gmx.de");
+        test_Citizen.set_Passwort("Pfeil123Bogen!");
         userService.save_User(test_Citizen);
 
         Debatte test_Debatte = new Debatte(Kategorie.ALLE, Thema.ALLE, test_Politician,
                 Bundesland.Bayern, "T1", "P1", "L1",
-                new Date(120, 04, 10, 12, 0));
-        debatteService.safe_Debatte(test_Debatte);
+                "12.04.2020 12:00");
+        debatteService.save_Debatte(test_Debatte);
     }
 }
