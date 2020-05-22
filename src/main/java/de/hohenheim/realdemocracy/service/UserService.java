@@ -1,7 +1,7 @@
 package de.hohenheim.realdemocracy.service;
 
 import de.hohenheim.realdemocracy.entity.Bundesland;
-import de.hohenheim.realdemocracy.entity.Citizen;
+import de.hohenheim.realdemocracy.entity.Debatte;
 import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,7 @@ public class UserService {
         userRepository.save(user);
         return true;
     }
+
     public User save_User(User user) {
         return userRepository.save(user);
     }

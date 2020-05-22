@@ -1,7 +1,7 @@
 package de.hohenheim.realdemocracy.controller;
 
 import de.hohenheim.realdemocracy.entity.Bundesland;
-import de.hohenheim.realdemocracy.entity.Citizen;
+import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,7 +96,7 @@ public class RegistrierungController {
             return "registrierung";
         }
 
-        Citizen newUser = new Citizen();
+        User newUser = new User();
         newUser.set_Ausweisnummer(ausweisnummer);
         newUser.set_Bundesland(bundesland);
         newUser.set_E_Mail(e_mail);
@@ -104,6 +104,4 @@ public class RegistrierungController {
         userService.save_User(newUser);
         return "login";
     }
-
-
 }

@@ -72,9 +72,7 @@ public class Debatte {
         return anzahl_Ablehnungen;
     }
 
-    public void add_Zustimmung(){
-        anzahl_Zustimmungen++;
-    }
+    public void add_Zustimmung(){ anzahl_Zustimmungen++; }
     public void add_Ablehnung(){
         anzahl_Ablehnungen++;
     }

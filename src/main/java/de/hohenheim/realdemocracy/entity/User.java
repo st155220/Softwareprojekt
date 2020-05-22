@@ -1,11 +1,11 @@
 package de.hohenheim.realdemocracy.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue
@@ -14,6 +14,11 @@ public abstract class User {
     private String e_Mail;
     private String passwort;
     private Bundesland bundesland;
+
+    private String ausweisnummer;
+
+    public String get_Ausweisnummer() {return ausweisnummer;}
+    public void set_Ausweisnummer(String ausweisnummer) {this.ausweisnummer = ausweisnummer;}
 
     public Integer get_User_Id() { return user_Id; }
 

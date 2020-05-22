@@ -17,7 +17,6 @@ public class ProfilAnpassenController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private DebatteService debatteService;
 

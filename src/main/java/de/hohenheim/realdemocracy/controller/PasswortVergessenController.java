@@ -1,6 +1,5 @@
 package de.hohenheim.realdemocracy.controller;
 
-import de.hohenheim.realdemocracy.entity.Citizen;
 import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +34,11 @@ public class PasswortVergessenController {
         }
 
         for (User user : userService.find_All_Users()){
-            if (user instanceof Citizen){
-                Citizen citizen = (Citizen) user;
-                if (citizen.get_E_Mail().equals(e_mail) && citizen.get_Ausweisnummer().equals(ausweisnummer)){
+                if (user.get_E_Mail().equals(e_mail) && user.get_Ausweisnummer().equals(ausweisnummer)){
                     userService.change_passwort(user.get_User_Id(), neues_passwort);
                     return "login";
                 }
             }
-        }
         return "passwortVergessen";
     }
 }

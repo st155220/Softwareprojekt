@@ -26,7 +26,7 @@
         </div>
 
         <div th:each="debatte: ${debatten}">
-            <form th:action="@{/debatteOeffnen}" method="POST">
+            <form th:action="@{/home/debatte}" method="POST">
                 <button name="debatten_Id" th:value="${debatte.get_Debatte_Id()}"
                         type="submit" th:text="${debatte.get_Titel()}"></button>
             </form>

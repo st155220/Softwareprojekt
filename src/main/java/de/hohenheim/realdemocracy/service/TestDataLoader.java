@@ -13,6 +13,8 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
     private UserService userService;
     @Autowired
     private DebatteService debatteService;
+    @Autowired
+    private AbstimmungService abstimmungService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -20,6 +22,7 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_Politician.set_Sektor("Ministerium für Kultur und Freizeit");
         test_Politician.set_Nachname("Schäfer");
         test_Politician.set_Vorname("Anja");
+        test_Politician.set_Ausweisnummer("M123456789");
         test_Politician.set_E_Mail("anja.schaefer@bundesregierung.de");
         test_Politician.set_Passwort("Marlene04.08.");
         test_Politician.set_Bundesland(Bundesland.ALLE);
@@ -37,12 +40,16 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_Debatte.add_Zustimmung();
         debatteService.save_Debatte(test_Debatte);
 
-        Citizen test_Citizen = new Citizen();
-        test_Citizen.set_Ausweisnummer("F123456789");
-        test_Citizen.set_Bundesland(Bundesland.Baden_Wuerttemberg);
-        test_Citizen.set_E_Mail("jackie.violin@gmx.de");
-        test_Citizen.set_Passwort("Pfeil123Bogen!");
-        test_Citizen.add_Abgestimmte_Debatte(test_Debatte);
-        userService.save_User(test_Citizen);
+        User test_User = new User();
+        test_User.set_Ausweisnummer("B123456789");
+        test_User.set_Bundesland(Bundesland.Baden_Wuerttemberg);
+        test_User.set_E_Mail("jackie.violin@gmx.de");
+        test_User.set_Passwort("Pfeil123Bogen!");
+        userService.save_User(test_User);
+
+        Abstimmung abstimmung = new Abstimmung();
+        abstimmung.set_Debatte_Id(test_Debatte.get_Debatte_Id());
+        abstimmung.set_User_Id(test_User.get_User_Id());
+        abstimmungService.save_Abstimmung(abstimmung);
     }
 }
