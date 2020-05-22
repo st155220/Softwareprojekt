@@ -15,14 +15,37 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
     private DebatteService debatteService;
     @Autowired
     private AbstimmungService abstimmungService;
+    @Autowired
+    private PersonService personService;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        Person p1 = new Person();
+        p1.setAusweisnummer("D12345");
+        p1.setNachname("Larche");
+        p1.setBundesland(Bundesland.Bayern);
+        p1.setIst_Wahlbereichtigt(true);
+        personService.save_Person(p1);
+
+        Person p2 = new Person();
+        p2.setAusweisnummer("P123456789");
+        p2.setNachname("Schäfer");
+        p2.setBundesland(Bundesland.ALLE);
+        p2.setIst_Wahlbereichtigt(true);
+        personService.save_Person(p2);
+
+        Person p3 = new Person();
+        p3.setAusweisnummer("B123456789");
+        p3.setNachname("Violin");
+        p3.setBundesland(Bundesland.Baden_Wuerttemberg);
+        p3.setIst_Wahlbereichtigt(true);
+        personService.save_Person(p3);
+
         Politician test_Politician = new Politician();
         test_Politician.set_Sektor("Ministerium für Kultur und Freizeit");
         test_Politician.set_Nachname("Schäfer");
         test_Politician.set_Vorname("Anja");
-        test_Politician.set_Ausweisnummer("M123456789");
+        test_Politician.set_Ausweisnummer("P123456789");
         test_Politician.set_E_Mail("anja.schaefer@bundesregierung.de");
         test_Politician.set_Passwort("Marlene04.08.");
         test_Politician.set_Bundesland(Bundesland.ALLE);

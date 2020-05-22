@@ -1,7 +1,9 @@
 package de.hohenheim.realdemocracy.controller;
 
 import de.hohenheim.realdemocracy.entity.Bundesland;
+import de.hohenheim.realdemocracy.entity.Person;
 import de.hohenheim.realdemocracy.entity.User;
+import de.hohenheim.realdemocracy.service.PersonService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class RegistrierungController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PersonService personService;
 
     @GetMapping("/registrierung")
     public String showRegister() {
@@ -96,12 +100,23 @@ public class RegistrierungController {
             return "registrierung";
         }
 
-        User newUser = new User();
-        newUser.set_Ausweisnummer(ausweisnummer);
-        newUser.set_Bundesland(bundesland);
-        newUser.set_E_Mail(e_mail);
-        newUser.set_Passwort(passwort);
-        userService.save_User(newUser);
-        return "login";
+        for (User user : userService.find_All_Users()){
+            if (user.get_E_Mail().equals(e_mail) || user.get_Ausweisnummer().equals(ausweisnummer)){
+                return "registrierung";
+            }
+        }
+
+        for (Person person : personService.find_All_Persons()){
+            if (person.getAusweisnummer().equals(ausweisnummer) && person.getNachname().equals(nachname)){
+                User newUser = new User();
+                newUser.set_Ausweisnummer(ausweisnummer);
+                newUser.set_Bundesland(bundesland);
+                newUser.set_E_Mail(e_mail);
+                newUser.set_Passwort(passwort);
+                userService.save_User(newUser);
+                return "login";
+            }
+        }
+            return "registrierung";
     }
 }

@@ -1,5 +1,6 @@
 package de.hohenheim.realdemocracy.controller;
 
+import de.hohenheim.realdemocracy.entity.Politician;
 import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,22 +24,21 @@ public class PasswortVergessenController {
 
     @PostMapping("/passwortVergessen/login")
     public String passwortAendern(HttpServletRequest req, Model model) {
-
         String e_mail = req.getParameter("e_mail");
         String ausweisnummer = req.getParameter("ausweisnummer");
         String neues_passwort = req.getParameter("neues_passwort");
         String passwort_bestaetigen = req.getParameter("passwort_bestaetigen");
 
-        if (!(neues_passwort.equals(passwort_bestaetigen))){
+        if (!(neues_passwort.equals(passwort_bestaetigen))) {
             return "passwortVergessen";
         }
 
-        for (User user : userService.find_All_Users()){
-                if (user.get_E_Mail().equals(e_mail) && user.get_Ausweisnummer().equals(ausweisnummer)){
-                    userService.change_passwort(user.get_User_Id(), neues_passwort);
-                    return "login";
-                }
+        for (User user : userService.find_All_Users()) {
+            if (!(user instanceof Politician) && user.get_E_Mail().equals(e_mail) && user.get_Ausweisnummer().equals(ausweisnummer)) {
+                userService.change_passwort(user.get_User_Id(), neues_passwort);
+                return "login";
             }
+        }
         return "passwortVergessen";
     }
 }

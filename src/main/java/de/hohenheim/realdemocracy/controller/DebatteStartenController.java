@@ -18,7 +18,12 @@ public class DebatteStartenController {
     private DebatteService debatteService;
 
     @GetMapping("/debatteStarten")
-    public String showDebatteStarten() {
+    public String showDebatteStarten(Model model) {
+        if (!(LoginController.currentUser instanceof Politician)){
+            List<Debatte> debatten = debatteService.find_All_Debates();
+            model.addAttribute("debatten", debatten);
+            return "home";
+        }
         return "debatteStarten";
     }
 

@@ -2,9 +2,11 @@ package de.hohenheim.realdemocracy.controller;
 
 import de.hohenheim.realdemocracy.entity.Abstimmung;
 import de.hohenheim.realdemocracy.entity.Debatte;
+import de.hohenheim.realdemocracy.entity.Person;
 import de.hohenheim.realdemocracy.entity.Politician;
 import de.hohenheim.realdemocracy.service.AbstimmungService;
 import de.hohenheim.realdemocracy.service.DebatteService;
+import de.hohenheim.realdemocracy.service.PersonService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ public class HomeController {
     private DebatteService debatteService;
     @Autowired
     private AbstimmungService abstimmungService;
+    @Autowired
+    private PersonService personService;
 
     @GetMapping("/home")
     @RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -67,7 +71,7 @@ public class HomeController {
         Debatte debatte = currentDebatte;
 
         if (action.equals("zustimmen")) {
-            if (schon_Abgestimmt(debatte)){
+            if (schon_Abgestimmt(debatte) || nicht_Wahlberechtigt()){
                 Politician ersteller = debatte.get_Ersteller();
                 model.addAttribute("titel", debatte.get_Titel());
                 model.addAttribute("sektor", ersteller.get_Sektor());
@@ -89,7 +93,7 @@ public class HomeController {
         }
 
         if (action.equals("ablehnen")) {
-            if (schon_Abgestimmt(debatte)){
+            if (schon_Abgestimmt(debatte) || nicht_Wahlberechtigt()){
                 Politician ersteller = debatte.get_Ersteller();
                 model.addAttribute("titel", debatte.get_Titel());
                 model.addAttribute("sektor", ersteller.get_Sektor());
@@ -107,7 +111,7 @@ public class HomeController {
             Abstimmung abstimmung = new Abstimmung();
             abstimmung.set_Debatte_Id(debatte.get_Debatte_Id());
             abstimmung.set_User_Id(LoginController.currentUser.get_User_Id());
-           abstimmungService.save_Abstimmung(abstimmung);
+            abstimmungService.save_Abstimmung(abstimmung);
         }
 
         if (action.equals("loeschen")) {
@@ -141,9 +145,15 @@ public class HomeController {
                 return true;
             }
         }
-
         return false;
     }
 
-
+    private boolean nicht_Wahlberechtigt() {
+        for(Person person : personService.find_All_Persons()) {
+            if(person.getAusweisnummer().equals(LoginController.currentUser.get_Ausweisnummer())){
+                return !person.istWahlbereichtigt();
+            }
+        }
+        return true;
+    }
 }
