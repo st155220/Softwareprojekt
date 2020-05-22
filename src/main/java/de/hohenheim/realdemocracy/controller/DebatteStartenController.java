@@ -107,6 +107,7 @@ public class DebatteStartenController {
         Debatte new_Debatte = new Debatte();
         new_Debatte.setKategorie(kategorie);
         new_Debatte.setThema(thema);
+        new_Debatte.setErsteller((Politician) LoginController.currentUser);
         new_Debatte.setBundesland(bundesland);
         new_Debatte.setTitel(titel);
         new_Debatte.setProblemstellung(problemstellung);

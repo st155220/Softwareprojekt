@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Debatte</title>
+</head>
+<body>
+
+<dialog open id="dialog">
+    <form th:action="@{/debatteSchliessen}" method="POST">
+        <H1 th:text="${titel}"></H1>
+
+        <h4>Sektor</h4>
+        <label th:text="${sektor}"></label>
+        <p></p>
+
+        <h4>Verantwortliche/r</h4>
+        <label th:text="${vorname}"></label>
+        <label th:text="${nachname}"></label>
+        <p></p>
+
+        <h4>Problemstellung</h4>
+        <label th:text="${problemstellung}"></label>
+        <p></p>
+
+        <h4>Lösungsstrategie</h4>
+        <label th:text="${loesungsstrategie}"></label>
+        <p></p>
+
+        <h4>Stichtag</h4>
+        <label th:text="${stichtag}"></label>
+        <p></p>
+
+        <h4>Anzahl Zustimmungen</h4>
+        <label th:text="${anzahl_Zustimmungen}"></label>
+        <p></p>
+
+        <h4>Anzahl Ablehnungen</h4>
+        <label th:text="${anzahl_Ablehnungen}"></label>
+        <p></p>
+        <p></p>
+        <p></p>
+        <button name="ok" type="submit" th:text="Schließen"></button>
+    </form>
+</dialog>
+
+</body>
+</html>

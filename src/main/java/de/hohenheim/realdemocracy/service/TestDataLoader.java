@@ -6,17 +6,11 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
-import java.util.Date;
-
 @Component
 public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    //private static final Logger logger = LoggerFactory.getLogger(TestDataLoader.class);
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private DebatteService debatteService;
 
@@ -31,21 +25,24 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_Politician.set_Bundesland(Bundesland.ALLE);
         userService.save_User(test_Politician);
 
+        Debatte test_Debatte = new Debatte();
+        test_Debatte.setKategorie(Kategorie.ALLE);
+        test_Debatte.setThema(Thema.ALLE);
+        test_Debatte.setErsteller(test_Politician);
+        test_Debatte.setBundesland(Bundesland.Baden_Wuerttemberg);
+        test_Debatte.setTitel("Bau eines neuen Kulturparks");
+        test_Debatte.setProblemstellung("Laut einer neuen Studie ist Stress eines der häufigsten Krankheitsursachen in unserer Bundesrepublik.");
+        test_Debatte.setLoesungsstrategie("Wir nutzen die freie Fläche am Mühlheimer-Tor und bauen dort mit staatlichen Ressourcen einen neuen Kulturpark zur Entspannung und Erholung der Bürgerinnen und Bürger.");
+        test_Debatte.setStichtag("01.06.2021T12:00");
+        test_Debatte.add_Zustimmung();
+        debatteService.save_Debatte(test_Debatte);
+
         Citizen test_Citizen = new Citizen();
         test_Citizen.set_Ausweisnummer("F123456789");
         test_Citizen.set_Bundesland(Bundesland.Baden_Wuerttemberg);
         test_Citizen.set_E_Mail("jackie.violin@gmx.de");
         test_Citizen.set_Passwort("Pfeil123Bogen!");
+        test_Citizen.add_Abgestimmte_Debatte(test_Debatte);
         userService.save_User(test_Citizen);
-
-        Debatte test_Debatte = new Debatte();
-        test_Debatte.setKategorie(Kategorie.ALLE);
-        test_Debatte.setThema(Thema.ALLE);
-        test_Debatte.setBundesland(Bundesland.Bayern);
-        test_Debatte.setTitel("T1");
-        test_Debatte.setProblemstellung("P1");
-        test_Debatte.setLoesungsstrategie("L1");
-        test_Debatte.setStichtag("12.04.2020 12:00");
-        debatteService.save_Debatte(test_Debatte);
     }
 }

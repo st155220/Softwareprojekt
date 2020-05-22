@@ -9,5 +9,4 @@ public class RealDemocracyApplication {
     public static void main(String[] args) {
         SpringApplication.run(RealDemocracyApplication.class, args);
     }
-
 }

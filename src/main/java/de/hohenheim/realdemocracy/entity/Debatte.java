@@ -1,9 +1,6 @@
 package de.hohenheim.realdemocracy.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 public class Debatte {
@@ -14,7 +11,8 @@ public class Debatte {
 
     private Kategorie kategorie;
     private Thema thema;
-    //private Politician ersteller;
+    @ManyToOne
+    private Politician ersteller;
     private Bundesland bundesland;
     private String titel;
     private String problemstellung;
@@ -22,6 +20,8 @@ public class Debatte {
     private String stichtag;
     private int anzahl_Zustimmungen;
     private int anzahl_Ablehnungen;
+
+    public Debatte(){anzahl_Zustimmungen = 0; anzahl_Ablehnungen=0;}
 
     public Integer get_Debatte_Id(){
         return debatte_Id;
@@ -34,6 +34,11 @@ public class Debatte {
         return thema;
     }
     public void setThema(Thema thema){this.thema = thema;}
+
+    public Politician get_Ersteller(){
+        return ersteller;
+    }
+    public void setErsteller(Politician ersteller){this.ersteller = ersteller;}
 
     public Bundesland get_Bundesland(){
         return bundesland;

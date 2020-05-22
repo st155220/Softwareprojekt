@@ -2,7 +2,6 @@ package de.hohenheim.realdemocracy.controller;
 
 import de.hohenheim.realdemocracy.entity.Bundesland;
 import de.hohenheim.realdemocracy.entity.Citizen;
-import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +30,7 @@ public class RegistrierungController {
         String e_mail_bestaetigen = req.getParameter("e_mail_bestaetigen");
         String passwort = req.getParameter("passwort");
         String passwort_bestaetigen = req.getParameter("passwort_bestaetigen");
+        String datenschutzhinweise = req.getParameter("datenschutzhinweise");
 
         Bundesland bundesland = Bundesland.ALLE;
 
@@ -88,6 +88,9 @@ public class RegistrierungController {
                 break;
         }
 
+        if (e_mail.equals("") || passwort.equals("") || datenschutzhinweise == null) {
+            return "registrierung";
+        }
 
         if (!(e_mail.equals(e_mail_bestaetigen) && passwort.equals(passwort_bestaetigen))) {
             return "registrierung";
@@ -95,11 +98,10 @@ public class RegistrierungController {
 
         Citizen newUser = new Citizen();
         newUser.set_Ausweisnummer(ausweisnummer);
+        newUser.set_Bundesland(bundesland);
         newUser.set_E_Mail(e_mail);
         newUser.set_Passwort(passwort);
         userService.save_User(newUser);
-
-
         return "login";
     }
 

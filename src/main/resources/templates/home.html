@@ -9,44 +9,42 @@
 </head>
 <body>
 <div class="container">
-    <form th:action="@{/home/login}" method="POST" class="form-horizontal">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title" th:text="'Real Democracy'"></h4>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title" th:text="'Real Democracy'"></h4>
 
-                <label for="kategorie">Kategorie:</label>
-                <select id="kategorie">
-                    <option value="alle">Alle</option>
-                </select>
+            <label for="kategorie">Kategorie:</label>
+            <select id="kategorie">
+                <option value="alle">Alle</option>
+            </select>
+            &nbsp; &nbsp;
 
-                &nbsp;
-                &nbsp;
+            <label for="thema">Thema:</label>
+            <select id="thema">
+                <option value="alle">Alle</option>
+            </select>
+        </div>
 
-                <label for="thema">Thema:</label>
-                <select id="thema">
-                    <option value="alle">Alle</option>
-                </select>
-            </div>
-
-
-            <div th:each="debatte: ${debatten}">
-                <label id="debatte" th:text="${debatte.get_Titel()}"></label>
-            </div>
-
-
+        <div th:each="debatte: ${debatten}">
+            <form th:action="@{/debatteOeffnen}" method="POST">
+                <button name="debatten_Id" th:value="${debatte.get_Debatte_Id()}"
+                        type="submit" th:text="${debatte.get_Titel()}"></button>
+            </form>
             <p></p>
-            <p></p>
+        </div>
 
+        <p></p>
+        <p></p>
 
-            <a href="/debatteStarten">Debatte Starten</a>
-            <a href="/profilAnpassen">Profil Anpassen</a>
+        <a href="/debatteStarten">Debatte Starten</a>
+        <a href="/profilAnpassen">Profil Anpassen</a>
 
+        <form th:action="@{/home/login}" method="POST" class="form-horizontal">
             <div class="card-footer">
                 <button name="Logout" type="Submit" th:text="'Logout'" class="btn btn-primary"></button>
             </div>
-
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>>
