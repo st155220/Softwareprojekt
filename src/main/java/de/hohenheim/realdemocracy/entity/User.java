@@ -11,7 +11,7 @@ public class User {
     @GeneratedValue
     private Integer user_Id;
 
-    private String e_Mail;
+    private String e_mail;
     private String passwort;
     private Bundesland bundesland;
 
@@ -22,12 +22,53 @@ public class User {
 
     public Integer get_User_Id() { return user_Id; }
 
-    public String get_E_Mail() { return e_Mail; }
-    public void set_E_Mail(String username) { this.e_Mail = username; }
+    public String get_E_Mail() { return e_mail; }
+    public void set_E_Mail(String username) { this.e_mail = username; }
 
     public String getPasswort() { return passwort; }
     public void set_Passwort(String passwort) { this.passwort = passwort; }
 
     public Bundesland get_Bundesland() {return bundesland;}
     public void set_Bundesland(Bundesland bundesland) {this.bundesland = bundesland;}
+
+    public static boolean email_Format_Passt(String email){
+        int step_counter = 0;
+        for (char c : email.toCharArray()){
+            if (step_counter == 0 && c != '@' && c!='.'){
+                step_counter++;
+            }else if(step_counter == 1 && c=='@'){
+                step_counter++;
+            }else if(step_counter == 2 && c != '@' && c!='.'){
+                step_counter++;
+            }else if(step_counter == 3 && c == '.'){
+                step_counter++;
+            } else if(step_counter == 4 && c != '@' && c!='.'){
+                step_counter++;
+            }
+        }
+        return step_counter == 5;
+    }
+
+    public static boolean passwort_Format_Passt(String passwort){
+        boolean sonderzeichen = false;
+        boolean zahl = false;
+        boolean grossbuchstabe = false;
+        boolean kleinbuchstabe = false;
+
+        for (char c: passwort.toCharArray()){
+            if(c == '!' || c == '$' ||  c == '%' ||  c == '&' ||  c == '/' ||  c == '?' ||  c == '+' ||  c == '-' ||  c == '*' ||  c == '#' || c == '=' || c == '.'){
+                sonderzeichen = true;
+            }
+            if(Character.isDigit(c)){
+                zahl = true;
+            }
+           if(Character.isLetter(c) && Character.isUpperCase(c)){
+               grossbuchstabe = true;
+           }
+            if(Character.isLetter(c) && Character.isLowerCase(c)){
+                kleinbuchstabe = true;
+            }
+        }
+        return passwort.length() >= 10 && sonderzeichen && zahl && grossbuchstabe && kleinbuchstabe;
+    }
 }

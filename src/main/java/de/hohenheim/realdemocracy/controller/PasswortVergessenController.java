@@ -29,6 +29,10 @@ public class PasswortVergessenController {
         String neues_passwort = req.getParameter("neues_passwort");
         String passwort_bestaetigen = req.getParameter("passwort_bestaetigen");
 
+        if (!User.passwort_Format_Passt(neues_passwort)) {
+            return "passwortVergessen";
+        }
+
         if (!(neues_passwort.equals(passwort_bestaetigen))) {
             return "passwortVergessen";
         }

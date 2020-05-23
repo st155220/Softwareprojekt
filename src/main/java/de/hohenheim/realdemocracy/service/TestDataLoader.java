@@ -30,7 +30,7 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         Person p2 = new Person();
         p2.setAusweisnummer("P123456789");
         p2.setNachname("Schäfer");
-        p2.setBundesland(Bundesland.ALLE);
+        p2.setBundesland(Bundesland.Bayern);
         p2.setIst_Wahlbereichtigt(true);
         personService.save_Person(p2);
 
@@ -56,12 +56,33 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_Debatte.setThema(Thema.ALLE);
         test_Debatte.setErsteller(test_Politician);
         test_Debatte.setBundesland(Bundesland.Baden_Wuerttemberg);
-        test_Debatte.setTitel("Bau eines neuen Kulturparks");
+        test_Debatte.setTitel("Bau eines neuen Kulturparks in Baden-Württemberg");
         test_Debatte.setProblemstellung("Laut einer neuen Studie ist Stress eines der häufigsten Krankheitsursachen in unserer Bundesrepublik.");
         test_Debatte.setLoesungsstrategie("Wir nutzen die freie Fläche am Mühlheimer-Tor und bauen dort mit staatlichen Ressourcen einen neuen Kulturpark zur Entspannung und Erholung der Bürgerinnen und Bürger.");
         test_Debatte.setStichtag("01.06.2021T12:00");
-        test_Debatte.add_Zustimmung();
         debatteService.save_Debatte(test_Debatte);
+
+        Debatte d2 = new Debatte();
+        d2.setKategorie(Kategorie.ALLE);
+        d2.setThema(Thema.ALLE);
+        d2.setErsteller(test_Politician);
+        d2.setBundesland(Bundesland.Bayern);
+        d2.setTitel("Investitionen in die Automobilindustrie in Bayern");
+        d2.setProblemstellung("Zu wenig Geld bei Daimler und Audi");
+        d2.setLoesungsstrategie("Siehe Titel.");
+        d2.setStichtag("01.07.2021T12:00");
+        debatteService.save_Debatte(d2);
+
+        Debatte d3 = new Debatte();
+        d3.setKategorie(Kategorie.ALLE);
+        d3.setThema(Thema.ALLE);
+        d3.setErsteller(test_Politician);
+        d3.setBundesland(Bundesland.ALLE);
+        d3.setTitel("Ausgliederung unserer Abgeordneten");
+        d3.setProblemstellung("Zu wenig Abgeordnete im Bundesland");
+        d3.setLoesungsstrategie("Wir haben vor die neue Abgeordnete in den Bundestag aufzunehmen.");
+        d3.setStichtag("01.08.2021T12:00");
+        debatteService.save_Debatte(d3);
 
         User test_User = new User();
         test_User.set_Ausweisnummer("B123456789");
@@ -69,10 +90,5 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         test_User.set_E_Mail("jackie.violin@gmx.de");
         test_User.set_Passwort("Pfeil123Bogen!");
         userService.save_User(test_User);
-
-        Abstimmung abstimmung = new Abstimmung();
-        abstimmung.set_Debatte_Id(test_Debatte.get_Debatte_Id());
-        abstimmung.set_User_Id(test_User.get_User_Id());
-        abstimmungService.save_Abstimmung(abstimmung);
     }
 }

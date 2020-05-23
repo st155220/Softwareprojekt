@@ -30,7 +30,7 @@ public class ProfilAnpassenController {
         String neue_e_mail = req.getParameter("neue_e_mail");
         String e_mail_bestaetigen = req.getParameter("e_mail_bestaetigen");
 
-        if (neue_e_mail.equals("") || !(neue_e_mail.equals(e_mail_bestaetigen))) {
+        if (!User.email_Format_Passt(neue_e_mail) || !(neue_e_mail.equals(e_mail_bestaetigen))) {
             return "profilAnpassen";
         }
 
@@ -49,7 +49,7 @@ public class ProfilAnpassenController {
 
 
         User user = LoginController.currentUser;
-        if (neues_passwort.equals("") || !(neues_passwort.equals(passwort_bestaetigen)) || !(altes_passwort.equals(user.getPasswort()))) {
+        if (!User.passwort_Format_Passt(neues_passwort) || !(neues_passwort.equals(passwort_bestaetigen)) || !(altes_passwort.equals(user.getPasswort()))) {
             return "profilAnpassen";
         }
 

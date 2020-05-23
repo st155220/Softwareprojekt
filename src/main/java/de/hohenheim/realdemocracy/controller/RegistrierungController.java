@@ -92,7 +92,7 @@ public class RegistrierungController {
                 break;
         }
 
-        if (e_mail.equals("") || passwort.equals("") || datenschutzhinweise == null) {
+        if (!User.email_Format_Passt(e_mail) || !User.passwort_Format_Passt(passwort) || datenschutzhinweise == null) {
             return "registrierung";
         }
 

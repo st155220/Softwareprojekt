@@ -1,9 +1,6 @@
 package de.hohenheim.realdemocracy.controller;
 
-import de.hohenheim.realdemocracy.entity.Abstimmung;
-import de.hohenheim.realdemocracy.entity.Debatte;
-import de.hohenheim.realdemocracy.entity.Person;
-import de.hohenheim.realdemocracy.entity.Politician;
+import de.hohenheim.realdemocracy.entity.*;
 import de.hohenheim.realdemocracy.service.AbstimmungService;
 import de.hohenheim.realdemocracy.service.DebatteService;
 import de.hohenheim.realdemocracy.service.PersonService;
@@ -71,7 +68,7 @@ public class HomeController {
         Debatte debatte = currentDebatte;
 
         if (action.equals("zustimmen")) {
-            if (schon_Abgestimmt(debatte) || nicht_Wahlberechtigt()){
+            if (schon_Abgestimmt(debatte) || nicht_Wahlberechtigt(debatte.get_Bundesland())) {
                 Politician ersteller = debatte.get_Ersteller();
                 model.addAttribute("titel", debatte.get_Titel());
                 model.addAttribute("sektor", ersteller.get_Sektor());
@@ -93,7 +90,7 @@ public class HomeController {
         }
 
         if (action.equals("ablehnen")) {
-            if (schon_Abgestimmt(debatte) || nicht_Wahlberechtigt()){
+            if (schon_Abgestimmt(debatte) || nicht_Wahlberechtigt(debatte.get_Bundesland())) {
                 Politician ersteller = debatte.get_Ersteller();
                 model.addAttribute("titel", debatte.get_Titel());
                 model.addAttribute("sektor", ersteller.get_Sektor());
@@ -115,7 +112,7 @@ public class HomeController {
         }
 
         if (action.equals("loeschen")) {
-            if(debatte.get_Ersteller().get_User_Id() != LoginController.currentUser.get_User_Id()){
+            if (debatte.get_Ersteller().get_User_Id() != LoginController.currentUser.get_User_Id()) {
                 Politician ersteller = debatte.get_Ersteller();
                 model.addAttribute("titel", debatte.get_Titel());
                 model.addAttribute("sektor", ersteller.get_Sektor());
@@ -139,19 +136,20 @@ public class HomeController {
 
 
     private boolean schon_Abgestimmt(Debatte debatte) {
-        for(Abstimmung abstimmung : abstimmungService.find_All_Abstimmungen()) {
-            if(abstimmung.get_Debatte_Id() == debatte.get_Debatte_Id()
-                    && abstimmung.get_User_Id() == LoginController.currentUser.get_User_Id()){
+        for (Abstimmung abstimmung : abstimmungService.find_All_Abstimmungen()) {
+            if (abstimmung.get_Debatte_Id() == debatte.get_Debatte_Id()
+                    && abstimmung.get_User_Id() == LoginController.currentUser.get_User_Id()) {
                 return true;
             }
         }
         return false;
     }
 
-    private boolean nicht_Wahlberechtigt() {
-        for(Person person : personService.find_All_Persons()) {
-            if(person.getAusweisnummer().equals(LoginController.currentUser.get_Ausweisnummer())){
-                return !person.istWahlbereichtigt();
+    private boolean nicht_Wahlberechtigt(Bundesland bundesland) {
+        for (Person person : personService.find_All_Persons()) {
+            if (person.getAusweisnummer().equals(LoginController.currentUser.get_Ausweisnummer())) {
+                return !person.istWahlbereichtigt() ||
+                        (person.getBundesland() != bundesland && bundesland != Bundesland.ALLE);
             }
         }
         return true;
