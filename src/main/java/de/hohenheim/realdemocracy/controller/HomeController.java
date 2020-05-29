@@ -35,13 +35,21 @@ public class HomeController {
     public String showHome(Model model) {
         List<Debatte> debatten = debatteService.find_All_Debates();
         model.addAttribute("debatten", debatten);
+        model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }
-
-    @PostMapping("/home/login")
+/*
+    @PostMapping("/logout")
     public String logOut(Model model) {
-        LoginController.currentUser = null;
         return "login";
+    }
+*/
+    @PostMapping("/home/change")
+    public String change_Sektor(Model model) {
+        List<Debatte> debatten = debatteService.find_All_Debates();
+        model.addAttribute("debatten", debatten);
+        model.addAttribute("email", userService.getCurrentUser().getUsername());
+        return "home";
     }
 
     @PostMapping("/home/debatte")
@@ -85,7 +93,7 @@ public class HomeController {
             debatteService.add_Zustimmung(debatte.get_Debatte_Id());
             Abstimmung abstimmung = new Abstimmung();
             abstimmung.set_Debatte_Id(debatte.get_Debatte_Id());
-            abstimmung.set_User_Id(LoginController.currentUser.get_User_Id());
+            abstimmung.set_User_Id(userService.getCurrentUser().get_User_Id());
             abstimmungService.save_Abstimmung(abstimmung);
         }
 
@@ -107,12 +115,12 @@ public class HomeController {
             debatteService.add_Ablehnung(debatte.get_Debatte_Id());
             Abstimmung abstimmung = new Abstimmung();
             abstimmung.set_Debatte_Id(debatte.get_Debatte_Id());
-            abstimmung.set_User_Id(LoginController.currentUser.get_User_Id());
+            abstimmung.set_User_Id(userService.getCurrentUser().get_User_Id());
             abstimmungService.save_Abstimmung(abstimmung);
         }
 
         if (action.equals("loeschen")) {
-            if (debatte.get_Ersteller().get_User_Id() != LoginController.currentUser.get_User_Id()) {
+            if (debatte.get_Ersteller().get_User_Id() != userService.getCurrentUser().get_User_Id()) {
                 Politician ersteller = debatte.get_Ersteller();
                 model.addAttribute("titel", debatte.get_Titel());
                 model.addAttribute("sektor", ersteller.get_Sektor());
@@ -130,6 +138,7 @@ public class HomeController {
         }
         List<Debatte> debatten = debatteService.find_All_Debates();
         model.addAttribute("debatten", debatten);
+        model.addAttribute("email", userService.getCurrentUser().getUsername());
         currentDebatte = null;
         return "home";
     }
@@ -138,7 +147,7 @@ public class HomeController {
     private boolean schon_Abgestimmt(Debatte debatte) {
         for (Abstimmung abstimmung : abstimmungService.find_All_Abstimmungen()) {
             if (abstimmung.get_Debatte_Id() == debatte.get_Debatte_Id()
-                    && abstimmung.get_User_Id() == LoginController.currentUser.get_User_Id()) {
+                    && abstimmung.get_User_Id() == userService.getCurrentUser().get_User_Id()) {
                 return true;
             }
         }
@@ -147,7 +156,7 @@ public class HomeController {
 
     private boolean nicht_Wahlberechtigt(Bundesland bundesland) {
         for (Person person : personService.find_All_Persons()) {
-            if (person.getAusweisnummer().equals(LoginController.currentUser.get_Ausweisnummer())) {
+            if (person.getAusweisnummer().equals(userService.getCurrentUser().get_Ausweisnummer())) {
                 return !person.istWahlbereichtigt() ||
                         (person.getBundesland() != bundesland && bundesland != Bundesland.ALLE);
             }

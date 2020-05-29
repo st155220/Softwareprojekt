@@ -13,17 +13,20 @@
         <div class="card-body">
             <h4 class="card-title" th:text="'Real Democracy'"></h4>
 
-            <label for="kategorie">Kategorie:</label>
-            <select id="kategorie">
-                <option value="alle">Alle</option>
-            </select>
-            &nbsp; &nbsp;
-
-            <label for="thema">Thema:</label>
-            <select id="thema">
-                <option value="alle">Alle</option>
-            </select>
+            <form th:action="@{/home/change}" method="POST">
+                <label for="sektor">Sektor:</label>
+                <select id="sektor">
+                    <option value="Ministerium_für_Kultur_und_Freizeit">Ministerium_für_Kultur_und_Freizeit</option>
+                </select>
+                &nbsp;
+                <button name="change" type="submit" th:text="Ändern"></button>
+            </form>
         </div>
+
+        <label th:text="${username}"></label>
+        <p></p>
+        <label>Hier sehen Sie die neusten Debatten:</label>
+        <p></p>
 
         <div th:each="debatte: ${debatten}">
             <form th:action="@{/home/debatte}" method="POST">
@@ -38,12 +41,7 @@
 
         <a href="/debatteStarten">Debatte Starten</a>
         <a href="/profilAnpassen">Profil Anpassen</a>
-
-        <form th:action="@{/home/login}" method="POST" class="form-horizontal">
-            <div class="card-footer">
-                <button name="Logout" type="Submit" th:text="'Logout'" class="btn btn-primary"></button>
-            </div>
-        </form>
+        <a href="/logout">Logout</a>
     </div>
 </div>
 </body>

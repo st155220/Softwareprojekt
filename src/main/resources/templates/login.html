@@ -14,19 +14,25 @@
             <div class="card-body">
                 <h4 class="card-title" th:text="'Real Democracy'"></h4>
 
+                <div th:if="${param.error}" class="alert alert-danger">
+                    <span th:text="'Login failed.'"></span>
+                </div>
+
+                <div th:if="${param.logout}" class="alert alert-success">
+                    <span th:text="'Logout successful.'"></span>
+                </div>
+
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>E-Mail-Adresse</label>
-                        <input name="e_mail" type="text"
-                               th:placeholder="'E-Mail-Adresse'" class="form-control"/><br/>
+                        <input name="username" type="text" th:placeholder="'Username'" class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Passwort</label>
-                        <input name="passwort" type="text" th:placeholder="'Passwort'"
-                               class="form-control"/><br/>
+                        <input name="password" type="password" th:placeholder="'Passwort'" class="form-control"/><br/>
                     </div>
                 </div>
 

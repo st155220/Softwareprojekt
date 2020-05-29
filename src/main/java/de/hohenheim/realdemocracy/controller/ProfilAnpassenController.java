@@ -4,6 +4,10 @@ import de.hohenheim.realdemocracy.entity.*;
 import de.hohenheim.realdemocracy.service.DebatteService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +23,8 @@ public class ProfilAnpassenController {
     private UserService userService;
     @Autowired
     private DebatteService debatteService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/profilAnpassen")
     public String showProfilAnpassen() {
@@ -34,10 +40,22 @@ public class ProfilAnpassenController {
             return "profilAnpassen";
         }
 
-        User user = LoginController.currentUser;
+        for (User user : userService.find_All_Users()){
+            if (user.getUsername().equals(neue_e_mail)){
+                return "profilAnpassen";
+            }
+        }
+
+        User user = userService.getCurrentUser();
         userService.change_email(user.get_User_Id(), neue_e_mail);
+
+        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(neue_e_mail, user.getPassword());
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authReq);
+
         List<Debatte> debatten = debatteService.find_All_Debates();
         model.addAttribute("debatten", debatten);
+        model.addAttribute("username", user.getUsername());
         return "home";
     }
 
@@ -48,14 +66,21 @@ public class ProfilAnpassenController {
         String passwort_bestaetigen = req.getParameter("passwort_bestaetigen");
 
 
-        User user = LoginController.currentUser;
-        if (!User.passwort_Format_Passt(neues_passwort) || !(neues_passwort.equals(passwort_bestaetigen)) || !(altes_passwort.equals(user.getPasswort()))) {
+        User user = userService.getCurrentUser();
+        if (!(User.passwort_Format_Passt(neues_passwort) && neues_passwort.equals(passwort_bestaetigen)
+                && passwordEncoder.matches(altes_passwort, user.getPassword()))) {
             return "profilAnpassen";
         }
 
-        userService.change_passwort(user.get_User_Id(), neues_passwort);
+        userService.change_passwort(user.get_User_Id(), passwordEncoder.encode(neues_passwort));
+
+        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(user.getUsername(), neues_passwort);
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authReq);
+
         List<Debatte> debatten = debatteService.find_All_Debates();
         model.addAttribute("debatten", debatten);
+        model.addAttribute("email", user.getUsername());
         return "home";
     }
 
@@ -117,10 +142,11 @@ public class ProfilAnpassenController {
                 break;
         }
 
-        User user = LoginController.currentUser;
+        User user = userService.getCurrentUser();
         userService.change_Bundesland(user.get_User_Id(), bundesland);
         List<Debatte> debatten = debatteService.find_All_Debates();
         model.addAttribute("debatten", debatten);
+        model.addAttribute("email", user.getUsername());
         return "home";
     }
 }

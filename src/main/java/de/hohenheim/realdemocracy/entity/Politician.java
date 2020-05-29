@@ -5,14 +5,14 @@ import javax.persistence.Entity;
 @Entity
 public class Politician extends User{
 
-    private String sektor;
+    private Sektor sektor;
     private String nachname;
     private String vorname;
 
-    public String get_Sektor(){
+    public Sektor get_Sektor(){
         return sektor;
     }
-    public void set_Sektor(String sektor) {this.sektor = sektor;}
+    public void set_Sektor(Sektor sektor) {this.sektor = sektor;}
 
     public String get_Nachname(){
         return nachname;

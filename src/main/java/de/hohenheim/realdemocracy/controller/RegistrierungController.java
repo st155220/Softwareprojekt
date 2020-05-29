@@ -6,6 +6,7 @@ import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.service.PersonService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ public class RegistrierungController {
     private UserService userService;
     @Autowired
     private PersonService personService;
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/registrierung")
     public String showRegister() {
@@ -30,8 +33,8 @@ public class RegistrierungController {
     public String register(HttpServletRequest req, Model model) {
         String nachname = req.getParameter("nachname");
         String ausweisnummer = req.getParameter("ausweisnummer");
-        String e_mail = req.getParameter("e_mail");
-        String e_mail_bestaetigen = req.getParameter("e_mail_bestaetigen");
+        String username = req.getParameter("e_mail");
+        String username_bestaetigen = req.getParameter("e_mail_bestaetigen");
         String passwort = req.getParameter("passwort");
         String passwort_bestaetigen = req.getParameter("passwort_bestaetigen");
         String datenschutzhinweise = req.getParameter("datenschutzhinweise");
@@ -92,16 +95,16 @@ public class RegistrierungController {
                 break;
         }
 
-        if (!User.email_Format_Passt(e_mail) || !User.passwort_Format_Passt(passwort) || datenschutzhinweise == null) {
+        if (!User.email_Format_Passt(username) || !User.passwort_Format_Passt(passwort) || datenschutzhinweise == null) {
             return "registrierung";
         }
 
-        if (!(e_mail.equals(e_mail_bestaetigen) && passwort.equals(passwort_bestaetigen))) {
+        if (!(username.equals(username_bestaetigen) && passwort.equals(passwort_bestaetigen))) {
             return "registrierung";
         }
 
         for (User user : userService.find_All_Users()){
-            if (user.get_E_Mail().equals(e_mail) || user.get_Ausweisnummer().equals(ausweisnummer)){
+            if (user.getUsername().equals(username) || user.get_Ausweisnummer().equals(ausweisnummer)){
                 return "registrierung";
             }
         }
@@ -111,8 +114,9 @@ public class RegistrierungController {
                 User newUser = new User();
                 newUser.set_Ausweisnummer(ausweisnummer);
                 newUser.set_Bundesland(bundesland);
-                newUser.set_E_Mail(e_mail);
-                newUser.set_Passwort(passwort);
+                newUser.setUsername(username);
+                newUser.setPassword(passwordEncoder.encode(passwort));
+                newUser.setEnabled(true);
                 userService.save_User(newUser);
                 return "login";
             }

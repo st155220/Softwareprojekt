@@ -9,8 +9,7 @@ public class Debatte {
     @GeneratedValue
     private Integer debatte_Id;
 
-    private Kategorie kategorie;
-    private Thema thema;
+    private Sektor sektor;
     @ManyToOne
     private Politician ersteller;
     private Bundesland bundesland;
@@ -26,14 +25,6 @@ public class Debatte {
     public Integer get_Debatte_Id(){
         return debatte_Id;
     }
-
-    public Kategorie get_Kategorie(){ return kategorie;}
-    public void setKategorie(Kategorie kategorie){this.kategorie = kategorie;}
-
-    public Thema get_Thema(){
-        return thema;
-    }
-    public void setThema(Thema thema){this.thema = thema;}
 
     public Politician get_Ersteller(){
         return ersteller;

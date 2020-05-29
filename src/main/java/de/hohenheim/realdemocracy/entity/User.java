@@ -11,8 +11,13 @@ public class User {
     @GeneratedValue
     private Integer user_Id;
 
-    private String e_mail;
-    private String passwort;
+    private String username;
+    private String password;
+    private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     private Bundesland bundesland;
 
     private String ausweisnummer;
@@ -22,14 +27,20 @@ public class User {
 
     public Integer get_User_Id() { return user_Id; }
 
-    public String get_E_Mail() { return e_mail; }
-    public void set_E_Mail(String username) { this.e_mail = username; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getPasswort() { return passwort; }
-    public void set_Passwort(String passwort) { this.passwort = passwort; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public boolean isEnabled(){return enabled;}
+    public void setEnabled(boolean enabled){this.enabled = enabled;}
 
     public Bundesland get_Bundesland() {return bundesland;}
     public void set_Bundesland(Bundesland bundesland) {this.bundesland = bundesland;}
+
+    public Set<Role> getRoles() { return roles; }
+    public void setRoles(Set<Role> roles) { this.roles = roles;}
 
     public static boolean email_Format_Passt(String email){
         int step_counter = 0;
