@@ -7,9 +7,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Component
 public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -18,25 +15,13 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
     @Autowired
     private DebatteService debatteService;
     @Autowired
-    private AbstimmungService abstimmungService;
-    @Autowired
     private PersonService personService;
-    @Autowired
-    private RoleService roleService;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-
-        Role adminRole = new Role("ROLE_ADMIN");
-        Role userRole = new Role("ROLE_USER");
-        Role politicianRole = new Role("ROLE_Politician");
-        roleService.saveRole(adminRole);
-        roleService.saveRole(userRole);
-        roleService.saveRole(politicianRole);
-
         Person personDominik = new Person();
         personDominik.setAusweisnummer("D123456789");
         personDominik.setNachname("Larche");
@@ -74,9 +59,6 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         anja.setPassword(passwordEncoder.encode("Aaabbbccc1*"));
         anja.setEnabled(true);
         anja.setBundesland(Bundesland.ALLE);
-        Set<Role> anja_roles = new HashSet<>();
-        anja_roles.add(politicianRole);
-        anja.setRoles(anja_roles);
         userService.saveUser(anja);
 
         Politician max = new Politician();
@@ -88,9 +70,6 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         max.setPassword(passwordEncoder.encode("Aaabbbccc1*"));
         max.setEnabled(true);
         max.setBundesland(Bundesland.ALLE);
-        Set<Role> max_roles = new HashSet<>();
-        max_roles.add(politicianRole);
-        max.setRoles(max_roles);
         userService.saveUser(max);
 
         User jackie = new User();
@@ -99,9 +78,6 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         jackie.setUsername("jackie");
         jackie.setPassword(passwordEncoder.encode("Aaabbbccc1*"));
         jackie.setEnabled(true);
-        Set<Role> jackie_roles = new HashSet<>();
-        jackie_roles.add(userRole);
-        jackie.setRoles(jackie_roles);
         userService.saveUser(jackie);
 
         Debatte test_Debatte = new Debatte();

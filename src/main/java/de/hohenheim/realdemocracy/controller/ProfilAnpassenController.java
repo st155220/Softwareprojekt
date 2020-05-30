@@ -68,12 +68,7 @@ public class ProfilAnpassenController {
                 && passwordEncoder.matches(oldPassword, user.getPassword()))) {
             return "profilAnpassen";
         }
-
         userService.changePassword(user.getUserId(), passwordEncoder.encode(newPassword));
-
-        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(user.getUsername(), newPassword);
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authReq);
 
         model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());

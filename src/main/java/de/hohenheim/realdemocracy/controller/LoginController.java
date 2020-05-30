@@ -45,7 +45,6 @@ public class LoginController {
         securityContext.setAuthentication(authReq);
 
         User user = userService.getUserByUsername(username);
-
         if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
             return "login";
         }
