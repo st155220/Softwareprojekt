@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class ProfilAnpassenController {
@@ -76,7 +75,7 @@ public class ProfilAnpassenController {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authReq);
 
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }
@@ -92,7 +91,7 @@ public class ProfilAnpassenController {
         User user = userService.getCurrentUser();
         userService.changeBundesland(user.getUserId(), bundesland);
 
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }

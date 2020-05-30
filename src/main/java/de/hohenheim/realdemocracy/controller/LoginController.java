@@ -1,5 +1,6 @@
 package de.hohenheim.realdemocracy.controller;
 
+import de.hohenheim.realdemocracy.entity.Sektor;
 import de.hohenheim.realdemocracy.entity.User;
 import de.hohenheim.realdemocracy.service.HelpService;
 import de.hohenheim.realdemocracy.service.UserService;
@@ -49,7 +50,8 @@ public class LoginController {
             return "login";
         }
 
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+        HomeController.currentSektor = Sektor.Alle;
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }

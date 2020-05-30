@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class DebatteStartenController {
@@ -26,7 +25,7 @@ public class DebatteStartenController {
     @GetMapping("/debatteStarten")
     public String showDebatteStarten(Model model) {
         if (!(userService.getCurrentUser() instanceof Politician)) {
-            model.addAttribute("debatten", helpService.getDebattes(null, null));
+            model.addAttribute("debatten", helpService.getDebattes());
             model.addAttribute("username", userService.getCurrentUser().getUsername());
             return "home";
         }
@@ -54,7 +53,7 @@ public class DebatteStartenController {
         newDebatte.setStichtag(stichtag);
         debatteService.saveDebatte(newDebatte);
 
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }

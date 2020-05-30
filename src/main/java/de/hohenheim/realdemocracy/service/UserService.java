@@ -64,6 +64,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
+    public User getUserByAusweisnummer(String ausweisnummer) {
+        return userRepository.findByAusweisnummer(ausweisnummer);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
     // Spring Security Authentication Methoden
     ///////////////////////////////////////////////////////////////////////////

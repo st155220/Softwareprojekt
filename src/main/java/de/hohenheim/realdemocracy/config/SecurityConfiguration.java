@@ -41,7 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests()
                 // alle Requests die ohne Login erreichbar sind
-                .antMatchers("/login", "/registrierung","/passwortVergessen", "/login/home", "/registrierung/login","/passwortVergessen/login","/console/**").permitAll()
+                .antMatchers("/login", "/registrierung","/passwortVergessen", "/usernameVergessen",
+                        "/login/home", "/registrierung/login","/passwortVergessen/login","/usernameVergessen/login",
+                        "/console/**").permitAll()
                 // definiere alle URLs die nur für eine bestimmte Rolle zugänglich sind
                 // Achtung: Spring Security fügt automatisch das Prefix "ROLE_" für die Überprüfung ein. Daher verwenden wir
                 // hier nicht "ROLE_ADMIN", wie bspw. im TestDataLoader angegeben.

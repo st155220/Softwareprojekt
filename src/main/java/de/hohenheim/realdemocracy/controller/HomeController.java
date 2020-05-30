@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 public class HomeController {
 
     public static Debatte currentDebatte;
+    public static Sektor currentSektor;
 
     @Autowired
     private UserService userService;
@@ -27,14 +28,16 @@ public class HomeController {
     @GetMapping("/home")
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showHome(Model model) {
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }
 
     @PostMapping("/home/change")
-    public String changeSektor(Model model) {
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+    public String changeSektor(HttpServletRequest req, Model model) {
+        Sektor sektor = helpService.getSektor(req.getParameter("sektor"));
+        currentSektor = sektor;
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }

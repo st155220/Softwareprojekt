@@ -1,14 +1,15 @@
 package de.hohenheim.realdemocracy.service;
 
+import de.hohenheim.realdemocracy.controller.HomeController;
 import de.hohenheim.realdemocracy.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class HelpService {
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -18,8 +19,30 @@ public class HelpService {
     @Autowired
     private PersonService personService;
 
-    public List<Debatte> getDebattes(Bundesland bundesland, Sektor sektor) {
-        return debatteService.findAllDebattes();
+    public List<Debatte> getDebattes() {
+        List<Debatte> list = new ArrayList<>();
+        User user = userService.getCurrentUser();
+
+        for (Debatte debatte : debatteService.findAllDebattes()) {
+            if (debatte.getBundesland() == Bundesland.ALLE || user.getBundesland() == Bundesland.ALLE
+                    || debatte.getBundesland() == user.getBundesland()) {
+                if (debatte.getErsteller().getSektor() == Sektor.Alle || HomeController.currentSektor == Sektor.Alle
+                        || debatte.getErsteller().getSektor() == HomeController.currentSektor) {
+                    list.add(debatte);
+                }
+            }
+        }
+        return list;
+    }
+
+    public Sektor getSektor(String sektor) {
+        switch (sektor) {
+            case "Alle":
+                return Sektor.Alle;
+            case "Ministerium_für_Kultur_und_Freizeit":
+                return Sektor.Ministerium_für_Kultur_und_Freizeit;
+        }
+        return null;
     }
 
     public Bundesland getBundesland(String bundesland) {
@@ -62,23 +85,23 @@ public class HelpService {
         return null;
     }
 
-    public boolean passwortFormatPasst(String passwort){
+    public boolean passwortFormatPasst(String passwort) {
         boolean sonderzeichen = false;
         boolean zahl = false;
         boolean grossbuchstabe = false;
         boolean kleinbuchstabe = false;
 
-        for (char c: passwort.toCharArray()){
-            if(c == '!' || c == '$' ||  c == '%' ||  c == '&' ||  c == '/' ||  c == '?' ||  c == '+' ||  c == '-' ||  c == '*' ||  c == '#' || c == '=' || c == '.'){
+        for (char c : passwort.toCharArray()) {
+            if (c == '!' || c == '$' || c == '%' || c == '&' || c == '/' || c == '?' || c == '+' || c == '-' || c == '*' || c == '#' || c == '=' || c == '.') {
                 sonderzeichen = true;
             }
-            if(Character.isDigit(c)){
+            if (Character.isDigit(c)) {
                 zahl = true;
             }
-            if(Character.isLetter(c) && Character.isUpperCase(c)){
+            if (Character.isLetter(c) && Character.isUpperCase(c)) {
                 grossbuchstabe = true;
             }
-            if(Character.isLetter(c) && Character.isLowerCase(c)){
+            if (Character.isLetter(c) && Character.isLowerCase(c)) {
                 kleinbuchstabe = true;
             }
         }

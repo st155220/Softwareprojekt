@@ -92,7 +92,7 @@ public class DebatteController {
             debatteService.deleteDebatteById(debatte.getDebatteId());
         }
         HomeController.currentDebatte = null;
-        model.addAttribute("debatten", helpService.getDebattes(null, null));
+        model.addAttribute("debatten", helpService.getDebattes());
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }

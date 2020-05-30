@@ -15,7 +15,8 @@
 
             <form th:action="@{/home/change}" method="POST">
                 <label for="sektor">Sektor:</label>
-                <select id="sektor">
+                <select id="sektor" name="sektor">
+                    <option value="Alle">Alle</option>
                     <option value="Ministerium_für_Kultur_und_Freizeit">Ministerium_für_Kultur_und_Freizeit</option>
                 </select>
                 &nbsp;
