@@ -9,18 +9,18 @@ public class Politician extends User{
     private String nachname;
     private String vorname;
 
-    public Sektor get_Sektor(){
+    public Sektor getSektor(){
         return sektor;
     }
-    public void set_Sektor(Sektor sektor) {this.sektor = sektor;}
+    public void setSektor(Sektor sektor) {this.sektor = sektor;}
 
-    public String get_Nachname(){
+    public String getNachname(){
         return nachname;
     }
-    public void set_Nachname(String nachname) {this.nachname = nachname;}
+    public void setNachname(String nachname) {this.nachname = nachname;}
 
-    public String get_Vorname(){
+    public String getVorname(){
         return vorname;
     }
-    public void set_Vorname(String vorname) {this.vorname = vorname;}
+    public void setVorname(String vorname) {this.vorname = vorname;}
 }

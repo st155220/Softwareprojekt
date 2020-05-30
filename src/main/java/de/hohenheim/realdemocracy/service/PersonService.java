@@ -13,7 +13,7 @@ public class PersonService {
     @Autowired
     private PersonRepository personRepository;
 
-    public Person get_Person_By_Id(String id){return personRepository.getOne(id);}
-    public List<Person> find_All_Persons(){return personRepository.findAll();}
-    public Person save_Person(Person person){return personRepository.save(person);}
+    public Person savePerson(Person person){return personRepository.save(person);}
+    public List<Person> findAllPersons(){return personRepository.findAll();}
+    public Person findByAusweisnummer(String ausweisnummer){return personRepository.findByAusweisnummer(ausweisnummer);}
 }

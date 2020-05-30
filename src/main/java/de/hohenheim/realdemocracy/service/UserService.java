@@ -15,39 +15,43 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<User> find_User_By_Id(int id) { return userRepository.findById(id);}
-    public void delete_By_Id(int id) { userRepository.deleteById(id);}
-    public boolean change_email(Integer userId, String newUsername) {
+    public boolean changeUsername(Integer userId, String newUsername) {
         User user = userRepository.getOne(userId);
         user.setUsername(newUsername);
         userRepository.save(user);
         return true;
     }
-    public boolean change_passwort(Integer userId, String new_passwort) {
+
+    public boolean changePassword(Integer userId, String newPassword) {
         User user = userRepository.getOne(userId);
-        user.setPassword(new_passwort);
-        userRepository.save(user);
-        return true;
-    }
-    public boolean change_Bundesland(Integer userId, Bundesland new_bundesland) {
-        User user = userRepository.getOne(userId);
-        user.set_Bundesland(new_bundesland);
+        user.setPassword(newPassword);
         userRepository.save(user);
         return true;
     }
 
-    public User save_User(User user) {
+    public boolean changeBundesland(Integer userId, Bundesland newBundesland) {
+        User user = userRepository.getOne(userId);
+        user.setBundesland(newBundesland);
+        userRepository.save(user);
+        return true;
+    }
+
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
-    public List<User> find_All_Users() {
-        return userRepository.findAll();
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean existsByAusweisnummer(String ausweisnummer) {
+        return userRepository.existsByAusweisnummer(ausweisnummer);
     }
 
     /**
@@ -70,8 +74,13 @@ public class UserService implements UserDetailsService {
      * @return User.
      */
     public User getCurrentUser() {
-        return getUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal()).getUsername());
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+                instanceof org.springframework.security.core.userdetails.User) {
+            return getUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
+                    .getAuthentication().getPrincipal()).getUsername());
+        }
+        return getUserByUsername((String) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal());
     }
 
     /**

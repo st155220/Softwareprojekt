@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <form th:action="@{/emailAnpassen/home}" method="POST" class="form-horizontal">
+    <form th:action="@{/usernameAnpassen/home}" method="POST" class="form-horizontal">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title" th:text="'Profil Anpassen'"></h4>
@@ -17,7 +17,7 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Neue E-Mail-Adresse</label>
-                        <input type="text" name="neue_e_mail" th:placeholder="'Neue E-Mail-Adresse'"
+                        <input type="text" name="newUsername" th:placeholder="'Neuer Benutzername'"
                                class="form-control"/><br/>
                     </div>
                 </div>
@@ -25,20 +25,20 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>E-Mail-Adresse Bestätigen</label>
-                        <input type="text" name="e_mail_bestaetigen" th:placeholder="'E-Mail-Adresse Bestätigen'"
+                        <input type="text" name="usernameBestaetigen" th:placeholder="'Benutzername Bestätigen'"
                                class="form-control"/><br/>
                     </div>
                 </div>
 
                 <div class="card-footer">
-                    <button name="Submit" type="Submit" th:text="'E-Mail-Adresse Ändern'" class="btn btn-primary"></button>
+                    <button name="Submit" type="Submit" th:text="'Benutzername Ändern'" class="btn btn-primary"></button>
                 </div>
             </div>
         </div>
     </form>
 
 
-    <form th:action="@{/passwortAnpassen/home}" method="POST" class="form-horizontal">
+    <form th:action="@{/passwordAnpassen/home}" method="POST" class="form-horizontal">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title" th:text="'Profil Anpassen'"></h4>
@@ -46,7 +46,7 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Altes Passwort</label>
-                        <input type="password" name="altes_passwort" th:placeholder="'Altes Passwort'"
+                        <input type="password" name="oldPassword" th:placeholder="'Altes Passwort'"
                                class="form-control"/><br/>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Neues Passwort</label>
-                        <input type="password" name="neues_passwort" th:placeholder="'Neues Passwort'"
+                        <input type="password" name="newPassword" th:placeholder="'Neues Passwort'"
                                class="form-control"/><br/>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                 <div class="row form-group">
                     <div class="col-12 col-md-6">
                         <label>Passwort Bestätigen</label>
-                        <input type="password" name="passwort_bestaetigen" th:placeholder="'Passwort Bestätigen'"
+                        <input type="password" name="passwordBestaetigen" th:placeholder="'Passwort Bestätigen'"
                                class="form-control"/><br/>
                     </div>
                 </div>

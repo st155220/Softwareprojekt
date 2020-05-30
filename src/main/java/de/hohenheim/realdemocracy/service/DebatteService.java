@@ -13,23 +13,22 @@ public class DebatteService {
     @Autowired
     private DebatteRepository debatteRepository;
 
-    public Debatte get_Debatte_By_Id(int id) { return debatteRepository.getOne(id);}
-    public Debatte save_Debatte(Debatte debatte) {return debatteRepository.save(debatte);}
-    public List<Debatte> find_All_Debates(){ return debatteRepository.findAll(); }
-    public void delete_Debatte_By_Id(int id){debatteRepository.deleteById(id);}
+    public Debatte saveDebatte(Debatte debatte) {return debatteRepository.save(debatte);}
+    public List<Debatte> findAllDebattes(){ return debatteRepository.findAll(); }
+    public Debatte getDebatteById(int id) { return debatteRepository.getOne(id);}
+    public void deleteDebatteById(int id){debatteRepository.deleteById(id);}
 
-    public boolean add_Zustimmung(Integer debatteId) {
+    public boolean addZustimmung(Integer debatteId) {
         Debatte debatte = debatteRepository.getOne(debatteId);
-        debatte.add_Zustimmung();
+        debatte.addZustimmung();
         debatteRepository.save(debatte);
         return true;
     }
 
-    public boolean add_Ablehnung(Integer debatteId) {
+    public boolean addAblehnung(Integer debatteId) {
         Debatte debatte = debatteRepository.getOne(debatteId);
-        debatte.add_Ablehnung();
+        debatte.addAblehnung();
         debatteRepository.save(debatte);
         return true;
     }
-
 }

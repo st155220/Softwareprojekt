@@ -13,7 +13,6 @@ public class AbstimmungService {
     @Autowired
     private AbstimmungRepository abstimmungRepository;
 
-    public List<Abstimmung> find_All_Abstimmungen(){return abstimmungRepository.findAll();}
-    public Abstimmung save_Abstimmung(Abstimmung abstimmung){return abstimmungRepository.save(abstimmung);}
-
+    public Abstimmung saveAbstimmung(Abstimmung abstimmung){return abstimmungRepository.save(abstimmung);}
+    public List<Abstimmung> findAllAbstimmungen(){return abstimmungRepository.findAll();}
 }

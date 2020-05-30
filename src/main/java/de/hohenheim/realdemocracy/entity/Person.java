@@ -11,7 +11,7 @@ public class Person {
 
     private String nachname;
     private Bundesland bundesland;
-    private boolean ist_Wahlbereichtigt;
+    private boolean istWahlbereichtigt;
 
     public void setAusweisnummer(String ausweisnummer){this.ausweisnummer = ausweisnummer;}
     public String getAusweisnummer(){return ausweisnummer;}
@@ -22,8 +22,8 @@ public class Person {
     public void setBundesland(Bundesland bundesland){this.bundesland = bundesland;}
     public Bundesland getBundesland(){return bundesland;}
 
-    public void setIst_Wahlbereichtigt(boolean ist_Wahlbereichtigt){this.ist_Wahlbereichtigt = ist_Wahlbereichtigt;}
-    public boolean istWahlbereichtigt(){return ist_Wahlbereichtigt;}
+    public void setIstWahlbereichtigt(boolean istWahlbereichtigt){this.istWahlbereichtigt = istWahlbereichtigt;}
+    public boolean istWahlbereichtigt(){return istWahlbereichtigt;}
 
 
 }

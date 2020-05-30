@@ -2,6 +2,7 @@ package de.hohenheim.realdemocracy.controller;
 
 import de.hohenheim.realdemocracy.entity.*;
 import de.hohenheim.realdemocracy.service.DebatteService;
+import de.hohenheim.realdemocracy.service.HelpService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +20,14 @@ public class DebatteStartenController {
     private UserService userService;
     @Autowired
     private DebatteService debatteService;
+    @Autowired
+    private HelpService helpService;
 
     @GetMapping("/debatteStarten")
     public String showDebatteStarten(Model model) {
-        if (!(userService.getCurrentUser() instanceof Politician)){
-            List<Debatte> debatten = debatteService.find_All_Debates();
-            model.addAttribute("debatten", debatten);
-            model.addAttribute("email", userService.getCurrentUser().getUsername());
+        if (!(userService.getCurrentUser() instanceof Politician)) {
+            model.addAttribute("debatten", helpService.getDebattes(null, null));
+            model.addAttribute("username", userService.getCurrentUser().getUsername());
             return "home";
         }
         return "debatteStarten";
@@ -37,78 +39,22 @@ public class DebatteStartenController {
         String problemstellung = req.getParameter("problemstellung");
         String loesungsstrategie = req.getParameter("loesungsstrategie");
         String stichtag = req.getParameter("stichtag");
-        Bundesland bundesland = Bundesland.ALLE;
+        Bundesland bundesland = helpService.getBundesland(req.getParameter("bundesland"));
 
-        switch (req.getParameter("bundesland")) {
-            case "alle":
-                bundesland = Bundesland.ALLE;
-                break;
-            case "baden_wuerttemberg":
-                bundesland = Bundesland.Baden_Wuerttemberg;
-                break;
-            case "bayern":
-                bundesland = Bundesland.Bayern;
-                break;
-            case "berlin":
-                bundesland = Bundesland.Berlin;
-                break;
-            case "brandenburg":
-                bundesland = Bundesland.Brandenburg;
-                break;
-            case "bremen":
-                bundesland = Bundesland.Bremen;
-                break;
-            case "hamburg":
-                bundesland = Bundesland.Hamburg;
-                break;
-            case "hessen":
-                bundesland = Bundesland.Hessen;
-                break;
-            case "mecklenburg_vorpommen":
-                bundesland = Bundesland.Mecklenburg_Vorpommen;
-                break;
-            case "niedersachsen":
-                bundesland = Bundesland.Niedersachsen;
-                break;
-            case "nordrhein_westfalen":
-                bundesland = Bundesland.Nordrhein_Westfalen;
-                break;
-            case "rheinland_pfalz":
-                bundesland = Bundesland.Rheinland_Pfalz;
-                break;
-            case "saarland":
-                bundesland = Bundesland.Saarland;
-                break;
-            case "sachsen_anhalt":
-                bundesland = Bundesland.Sachsen_Anhalt;
-                break;
-            case "sachsen":
-                bundesland = Bundesland.Sachsen;
-                break;
-            case "schleswig-holstein":
-                bundesland = Bundesland.Schleswig_Holstein;
-                break;
-            case "thueringen":
-                bundesland = Bundesland.Thueringen;
-                break;
-        }
-
-        if (titel.equals("") || problemstellung.equals("") || loesungsstrategie.equals("") || stichtag.equals("")
-                || !(userService.getCurrentUser() instanceof Politician)) {
+        if (titel.equals("") || problemstellung.equals("") || loesungsstrategie.equals("") || stichtag.equals("")) {
             return "debatteStarten";
         }
 
-        Debatte new_Debatte = new Debatte();
-        new_Debatte.setErsteller((Politician) userService.getCurrentUser());
-        new_Debatte.setBundesland(bundesland);
-        new_Debatte.setTitel(titel);
-        new_Debatte.setProblemstellung(problemstellung);
-        new_Debatte.setLoesungsstrategie(loesungsstrategie);
-        new_Debatte.setStichtag(stichtag);
-        debatteService.save_Debatte(new_Debatte);
+        Debatte newDebatte = new Debatte();
+        newDebatte.setErsteller((Politician) userService.getCurrentUser());
+        newDebatte.setBundesland(bundesland);
+        newDebatte.setTitel(titel);
+        newDebatte.setProblemstellung(problemstellung);
+        newDebatte.setLoesungsstrategie(loesungsstrategie);
+        newDebatte.setStichtag(stichtag);
+        debatteService.saveDebatte(newDebatte);
 
-        List<Debatte> debatten = debatteService.find_All_Debates();
-        model.addAttribute("debatten", debatten);
+        model.addAttribute("debatten", helpService.getDebattes(null, null));
         model.addAttribute("username", userService.getCurrentUser().getUsername());
         return "home";
     }

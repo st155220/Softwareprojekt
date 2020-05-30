@@ -13,10 +13,7 @@ public class Role {
 
     private String rolename;
 
-    public Role() {
-        //empty constructor for Hibernate
-    }
-
+    public Role() {}
     public Role(String rolename) {
         this.rolename = rolename;
     }
@@ -25,14 +22,9 @@ public class Role {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getRolename() {
         return rolename;
     }
-
     public void setRolename(String rolename) {
         this.rolename = rolename;
     }

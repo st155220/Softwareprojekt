@@ -3,6 +3,7 @@ package de.hohenheim.realdemocracy.controller;
 import de.hohenheim.realdemocracy.entity.Bundesland;
 import de.hohenheim.realdemocracy.entity.Person;
 import de.hohenheim.realdemocracy.entity.User;
+import de.hohenheim.realdemocracy.service.HelpService;
 import de.hohenheim.realdemocracy.service.PersonService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class RegistrierungController {
-
     @Autowired
     private UserService userService;
     @Autowired
     private PersonService personService;
+    @Autowired
+    private HelpService helpService;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -33,94 +35,38 @@ public class RegistrierungController {
     public String register(HttpServletRequest req, Model model) {
         String nachname = req.getParameter("nachname");
         String ausweisnummer = req.getParameter("ausweisnummer");
-        String username = req.getParameter("e_mail");
-        String username_bestaetigen = req.getParameter("e_mail_bestaetigen");
-        String passwort = req.getParameter("passwort");
-        String passwort_bestaetigen = req.getParameter("passwort_bestaetigen");
+        String username = req.getParameter("username");
+        String usernameBestaetigen = req.getParameter("usernameBestaetigen");
+        String password = req.getParameter("password");
+        String passwordBestaetigen = req.getParameter("passwordBestaetigen");
         String datenschutzhinweise = req.getParameter("datenschutzhinweise");
+        Bundesland bundesland = helpService.getBundesland(req.getParameter("bundesland"));
 
-        Bundesland bundesland = Bundesland.ALLE;
-
-        switch (req.getParameter("bundesland")) {
-            case "alle":
-                bundesland = Bundesland.ALLE;
-                break;
-            case "baden_wuerttemberg":
-                bundesland = Bundesland.Baden_Wuerttemberg;
-                break;
-            case "bayern":
-                bundesland = Bundesland.Bayern;
-                break;
-            case "berlin":
-                bundesland = Bundesland.Berlin;
-                break;
-            case "brandenburg":
-                bundesland = Bundesland.Brandenburg;
-                break;
-            case "bremen":
-                bundesland = Bundesland.Bremen;
-                break;
-            case "hamburg":
-                bundesland = Bundesland.Hamburg;
-                break;
-            case "hessen":
-                bundesland = Bundesland.Hessen;
-                break;
-            case "mecklenburg_vorpommen":
-                bundesland = Bundesland.Mecklenburg_Vorpommen;
-                break;
-            case "niedersachsen":
-                bundesland = Bundesland.Niedersachsen;
-                break;
-            case "nordrhein_westfalen":
-                bundesland = Bundesland.Nordrhein_Westfalen;
-                break;
-            case "rheinland_pfalz":
-                bundesland = Bundesland.Rheinland_Pfalz;
-                break;
-            case "saarland":
-                bundesland = Bundesland.Saarland;
-                break;
-            case "sachsen_anhalt":
-                bundesland = Bundesland.Sachsen_Anhalt;
-                break;
-            case "sachsen":
-                bundesland = Bundesland.Sachsen;
-                break;
-            case "schleswig-holstein":
-                bundesland = Bundesland.Schleswig_Holstein;
-                break;
-            case "thueringen":
-                bundesland = Bundesland.Thueringen;
-                break;
-        }
-
-        if (!User.email_Format_Passt(username) || !User.passwort_Format_Passt(passwort) || datenschutzhinweise == null) {
+        if (username.equals("") || !helpService.passwortFormatPasst(password) || datenschutzhinweise == null) {
             return "registrierung";
         }
 
-        if (!(username.equals(username_bestaetigen) && passwort.equals(passwort_bestaetigen))) {
+        if (!username.equals(usernameBestaetigen) || !password.equals(passwordBestaetigen)) {
             return "registrierung";
         }
 
-        for (User user : userService.find_All_Users()){
-            if (user.getUsername().equals(username) || user.get_Ausweisnummer().equals(ausweisnummer)){
-                return "registrierung";
-            }
+        if (userService.existsByUsername(username) || userService.existsByAusweisnummer(ausweisnummer)) {
+            return "registrierung";
         }
 
-        for (Person person : personService.find_All_Persons()){
-            if (person.getAusweisnummer().equals(ausweisnummer) && person.getNachname().equals(nachname)){
-                User newUser = new User();
-                newUser.set_Ausweisnummer(ausweisnummer);
-                newUser.set_Bundesland(bundesland);
-                newUser.setUsername(username);
-                newUser.setPassword(passwordEncoder.encode(passwort));
-                newUser.setEnabled(true);
-                userService.save_User(newUser);
-                return "login";
-            }
-        }
+        Person person = personService.findByAusweisnummer(ausweisnummer);
+
+        if (person == null || !person.getNachname().equals(nachname)) {
             return "registrierung";
+        }
+
+        User newUser = new User();
+        newUser.setAusweisnummer(ausweisnummer);
+        newUser.setBundesland(bundesland);
+        newUser.setUsername(username);
+        newUser.setPassword(passwordEncoder.encode(password));
+        newUser.setEnabled(true);
+        userService.saveUser(newUser);
+        return "login";
     }
 }

@@ -7,65 +7,63 @@ public class Debatte {
 
     @Id
     @GeneratedValue
-    private Integer debatte_Id;
+    private Integer debatteId;
 
     private Sektor sektor;
-    @ManyToOne
-    private Politician ersteller;
     private Bundesland bundesland;
     private String titel;
     private String problemstellung;
     private String loesungsstrategie;
     private String stichtag;
-    private int anzahl_Zustimmungen;
-    private int anzahl_Ablehnungen;
+    private int anzahlZustimmungen;
+    private int anzahlAblehnungen;
+    @ManyToOne
+    private Politician ersteller;
 
-    public Debatte(){anzahl_Zustimmungen = 0; anzahl_Ablehnungen=0;}
-
-    public Integer get_Debatte_Id(){
-        return debatte_Id;
+    public Integer getDebatteId(){
+        return debatteId;
     }
 
-    public Politician get_Ersteller(){
-        return ersteller;
-    }
-    public void setErsteller(Politician ersteller){this.ersteller = ersteller;}
-
-    public Bundesland get_Bundesland(){
+    public Bundesland getBundesland(){
         return bundesland;
     }
     public void setBundesland(Bundesland bundesland){this.bundesland = bundesland;}
 
-    public String get_Titel(){
+    public String getTitel(){
         return titel;
     }
     public void setTitel(String titel){this.titel = titel;}
 
-    public String get_Problemstellung(){
+    public String getProblemstellung(){
         return problemstellung;
     }
     public void setProblemstellung(String problemstellung){this.problemstellung = problemstellung;}
 
-    public String get_Loesungsstrategie(){
+    public String getLoesungsstrategie(){
         return loesungsstrategie;
     }
     public void setLoesungsstrategie(String loesungsstrategie){this.loesungsstrategie = loesungsstrategie;}
 
-    public String get_Stichtag(){
+    public String getStichtag(){
         return stichtag;
     }
     public void setStichtag(String stichtag){this.stichtag = stichtag;}
 
-    public int get_Anzahl_Zustimmungen(){
-        return anzahl_Zustimmungen;
+    public int getAnzahlZustimmungen(){
+        return anzahlZustimmungen;
     }
-    public int get_Anzahl_Ablehnungen(){
-        return anzahl_Ablehnungen;
+    public int getAnzahlAblehnungen(){
+        return anzahlAblehnungen;
     }
 
-    public void add_Zustimmung(){ anzahl_Zustimmungen++; }
-    public void add_Ablehnung(){
-        anzahl_Ablehnungen++;
+    public void addZustimmung(){ anzahlZustimmungen++; }
+    public void addAblehnung(){
+        anzahlAblehnungen++;
     }
+
+    public Politician getErsteller(){
+        return ersteller;
+    }
+    public void setErsteller(Politician ersteller){this.ersteller = ersteller;}
 
 }

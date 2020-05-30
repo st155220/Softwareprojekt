@@ -11,5 +11,5 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Role save_Role(Role role){return roleRepository.save(role);}
+    public Role saveRole(Role role){return roleRepository.save(role);}
 }
