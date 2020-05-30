@@ -37,54 +37,75 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         roleService.saveRole(userRole);
         roleService.saveRole(politicianRole);
 
-        Person p1 = new Person();
-        p1.setAusweisnummer("D12345");
-        p1.setNachname("Larche");
-        p1.setBundesland(Bundesland.Bayern);
-        p1.setIstWahlbereichtigt(true);
-        personService.savePerson(p1);
+        Person personDominik = new Person();
+        personDominik.setAusweisnummer("D123456789");
+        personDominik.setNachname("Larche");
+        personDominik.setBundesland(Bundesland.Bayern);
+        personDominik.setIstWahlbereichtigt(true);
+        personService.savePerson(personDominik);
 
-        Person p2 = new Person();
-        p2.setAusweisnummer("P123456789");
-        p2.setNachname("Schäfer");
-        p2.setBundesland(Bundesland.Bayern);
-        p2.setIstWahlbereichtigt(true);
-        personService.savePerson(p2);
+        Person personAnja = new Person();
+        personAnja.setAusweisnummer("A123456789");
+        personAnja.setNachname("Schäfer");
+        personAnja.setBundesland(Bundesland.Bayern);
+        personAnja.setIstWahlbereichtigt(true);
+        personService.savePerson(personAnja);
 
-        Person p3 = new Person();
-        p3.setAusweisnummer("B123456789");
-        p3.setNachname("Violin");
-        p3.setBundesland(Bundesland.Baden_Wuerttemberg);
-        p3.setIstWahlbereichtigt(true);
-        personService.savePerson(p3);
+        Person personJackie = new Person();
+        personJackie.setAusweisnummer("J123456789");
+        personJackie.setNachname("Violin");
+        personJackie.setBundesland(Bundesland.Baden_Wuerttemberg);
+        personJackie.setIstWahlbereichtigt(true);
+        personService.savePerson(personJackie);
 
-        Politician test_Politician = new Politician();
-        test_Politician.setSektor(Sektor.Ministerium_für_Kultur_und_Freizeit);
-        test_Politician.setNachname("Schäfer");
-        test_Politician.setVorname("Anja");
-        test_Politician.setAusweisnummer("P123456789");
-        test_Politician.setUsername("anja.schaefer@bundesregierung.de");
-        test_Politician.setPassword(passwordEncoder.encode("Marlene04.08."));
-        test_Politician.setEnabled(true);
-        test_Politician.setBundesland(Bundesland.ALLE);
-        Set<Role> test_Politician_roles = new HashSet<>();
-        test_Politician_roles.add(politicianRole);
-        test_Politician.setRoles(test_Politician_roles);
-        userService.saveUser(test_Politician);
+        Person personMax = new Person();
+        personMax.setAusweisnummer("M123456789");
+        personMax.setNachname("Heidelberg");
+        personMax.setBundesland(Bundesland.Baden_Wuerttemberg);
+        personMax.setIstWahlbereichtigt(true);
+        personService.savePerson(personMax);
 
-        User test_User = new User();
-        test_User.setAusweisnummer("B123456789");
-        test_User.setBundesland(Bundesland.Baden_Wuerttemberg);
-        test_User.setUsername("jackie.violin@gmx.de");
-        test_User.setPassword(passwordEncoder.encode("Pfeil123Bogen!"));
-        test_User.setEnabled(true);
-        Set<Role> test_User_roles = new HashSet<>();
-        test_User_roles.add(userRole);
-        test_User.setRoles(test_User_roles);
-        userService.saveUser(test_User);
+        Politician anja = new Politician();
+        anja.setSektor(Sektor.Ministerium_für_Kultur_und_Freizeit);
+        anja.setNachname("Schäfer");
+        anja.setVorname("Anja");
+        anja.setAusweisnummer("A123456789");
+        anja.setUsername("anja");
+        anja.setPassword(passwordEncoder.encode("Aaabbbccc1*"));
+        anja.setEnabled(true);
+        anja.setBundesland(Bundesland.ALLE);
+        Set<Role> anja_roles = new HashSet<>();
+        anja_roles.add(politicianRole);
+        anja.setRoles(anja_roles);
+        userService.saveUser(anja);
+
+        Politician max = new Politician();
+        max.setSektor(Sektor.Ministerium_für_Arbeit_und_Soziales);
+        max.setNachname("Heidelberg");
+        max.setVorname("Max");
+        max.setAusweisnummer("M123456789");
+        max.setUsername("max");
+        max.setPassword(passwordEncoder.encode("Aaabbbccc1*"));
+        max.setEnabled(true);
+        max.setBundesland(Bundesland.ALLE);
+        Set<Role> max_roles = new HashSet<>();
+        max_roles.add(politicianRole);
+        max.setRoles(max_roles);
+        userService.saveUser(max);
+
+        User jackie = new User();
+        jackie.setAusweisnummer("J123456789");
+        jackie.setBundesland(Bundesland.Baden_Wuerttemberg);
+        jackie.setUsername("jackie");
+        jackie.setPassword(passwordEncoder.encode("Aaabbbccc1*"));
+        jackie.setEnabled(true);
+        Set<Role> jackie_roles = new HashSet<>();
+        jackie_roles.add(userRole);
+        jackie.setRoles(jackie_roles);
+        userService.saveUser(jackie);
 
         Debatte test_Debatte = new Debatte();
-        test_Debatte.setErsteller(test_Politician);
+        test_Debatte.setErsteller(anja);
         test_Debatte.setBundesland(Bundesland.Baden_Wuerttemberg);
         test_Debatte.setTitel("Bau eines neuen Kulturparks in Baden-Württemberg");
         test_Debatte.setProblemstellung("Laut einer neuen Studie ist Stress eines der häufigsten Krankheitsursachen in unserer Bundesrepublik.");
@@ -93,7 +114,7 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         debatteService.saveDebatte(test_Debatte);
 
         Debatte d2 = new Debatte();
-        d2.setErsteller(test_Politician);
+        d2.setErsteller(max);
         d2.setBundesland(Bundesland.Bayern);
         d2.setTitel("Investitionen in die Automobilindustrie in Bayern");
         d2.setProblemstellung("Zu wenig Geld bei Daimler und Audi");
@@ -102,12 +123,21 @@ public class TestDataLoader implements ApplicationListener<ContextRefreshedEvent
         debatteService.saveDebatte(d2);
 
         Debatte d3 = new Debatte();
-        d3.setErsteller(test_Politician);
+        d3.setErsteller(anja);
         d3.setBundesland(Bundesland.ALLE);
         d3.setTitel("Ausgliederung unserer Abgeordneten");
         d3.setProblemstellung("Zu wenig Abgeordnete im Bundesland");
         d3.setLoesungsstrategie("Wir haben vor die neue Abgeordnete in den Bundestag aufzunehmen.");
         d3.setStichtag("01.08.2021T12:00");
         debatteService.saveDebatte(d3);
+
+        Debatte d4 = new Debatte();
+        d4.setErsteller(max);
+        d4.setBundesland(Bundesland.ALLE);
+        d4.setTitel("Arbeitslosenversucherungspflicht");
+        d4.setProblemstellung("Zu wenig Arbeit im Bundesland");
+        d4.setLoesungsstrategie("Neues Gesetz zur Pflicht eine Arbeitslosenversucherung für jeden");
+        d4.setStichtag("01.12.2021T12:00");
+        debatteService.saveDebatte(d4);
     }
 }

@@ -41,6 +41,8 @@ public class HelpService {
                 return Sektor.Alle;
             case "Ministerium_für_Kultur_und_Freizeit":
                 return Sektor.Ministerium_für_Kultur_und_Freizeit;
+            case "Ministerium_für_Arbeit_und_Soziales":
+                return Sektor.Ministerium_für_Arbeit_und_Soziales;
         }
         return null;
     }
