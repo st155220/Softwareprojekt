@@ -29,7 +29,7 @@ public class HomeController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showHome(Model model) {
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 
@@ -38,7 +38,7 @@ public class HomeController {
         Sektor sektor = helpService.getSektor(req.getParameter("sektor"));
         currentSektor = sektor;
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 

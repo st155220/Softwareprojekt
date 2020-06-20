@@ -19,6 +19,10 @@ public class HelpService {
     @Autowired
     private PersonService personService;
 
+    public String getCurrentUsername(){
+        return "Hallo " + userService.getCurrentUser().getUsername() + ", hier sehen Sie die neusten Debatten:";
+    }
+
     public List<Debatte> getDebattes() {
         List<Debatte> list = new ArrayList<>();
         User user = userService.getCurrentUser();

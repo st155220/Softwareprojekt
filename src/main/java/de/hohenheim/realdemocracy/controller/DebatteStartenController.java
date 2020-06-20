@@ -26,7 +26,7 @@ public class DebatteStartenController {
     public String showDebatteStarten(Model model) {
         if (!(userService.getCurrentUser() instanceof Politician)) {
             model.addAttribute("debatten", helpService.getDebattes());
-            model.addAttribute("username", userService.getCurrentUser().getUsername());
+            model.addAttribute("username", helpService.getCurrentUsername());
             return "home";
         }
         return "debatteStarten";
@@ -54,7 +54,7 @@ public class DebatteStartenController {
         debatteService.saveDebatte(newDebatte);
 
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 

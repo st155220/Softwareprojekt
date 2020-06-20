@@ -93,7 +93,7 @@ public class DebatteController {
         }
         HomeController.currentDebatte = null;
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 }

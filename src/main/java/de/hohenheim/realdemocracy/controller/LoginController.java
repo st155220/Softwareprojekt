@@ -51,7 +51,7 @@ public class LoginController {
 
         HomeController.currentSektor = Sektor.Alle;
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 }

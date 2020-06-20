@@ -4,8 +4,6 @@ import de.hohenheim.realdemocracy.entity.*;
 import de.hohenheim.realdemocracy.service.HelpService;
 import de.hohenheim.realdemocracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -71,7 +69,7 @@ public class ProfilAnpassenController {
         userService.changePassword(user.getUserId(), passwordEncoder.encode(newPassword));
 
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 
@@ -87,7 +85,7 @@ public class ProfilAnpassenController {
         userService.changeBundesland(user.getUserId(), bundesland);
 
         model.addAttribute("debatten", helpService.getDebattes());
-        model.addAttribute("username", userService.getCurrentUser().getUsername());
+        model.addAttribute("username", helpService.getCurrentUsername());
         return "home";
     }
 }
