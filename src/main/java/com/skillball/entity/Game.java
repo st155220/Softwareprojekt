@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
-//
+
 @Entity
 public class Game {
     @Id
